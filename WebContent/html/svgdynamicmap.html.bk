@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/animate.css"/>
+	<link rel="stylesheet" href="css/sweetalert.css"/>
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"/>
+
+	<link rel="stylesheet" href="css/style.css"/>
+	<link rel="stylesheet" href="css/dynamicmap.css"/>
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/dynamicmap.js"></script>
+
+	<title>Monitoring Dashboard</title>
+</head>
+<body>
+	<div id="form-select-date">
+		<label for="formdate">Ngày</label>
+		<input type="date" id="formdate" value='2019-11-18'/>
+
+		<label for="formhour">Giờ</label>
+		<select id="formhour">
+			
+		</select>
+
+		<label for="formfrommenute">Từ phút</label>
+		<select id="formfrommenute">
+			
+		</select>
+
+		<label for="formtomenute">đến phút</label>
+		<select id="formtomenute">
+			
+		</select>
+		<button id="btn-replay" title="Xem lại"><i class='fa fa-step-backward'></i></button>
+		<button id="btn-realtime" title="Xem trực tuyến"><i class='fa fa-play'></i></button>
+		
+		<h2 id="map-name">Connectivity Map</h2>
+	</div>
+	<div id="svg-container">
+		<img src=""/>
+	</div>
+	<div id="detail-display">
+		<div class="detail-block" id="detail-a">
+			<div class="detail-header">
+				<h4 class='detail-caption'>EVENT ATTACKS <div id='attack-count' class="count">0</div></h4>
+				<div class="detailrow">
+					<div class="src">SOURCEIP</div>
+					<div class="dst">DESTINATION</div>
+					<div class="action">ACTIION</div>
+				</div>
+			</div>
+			<div class="detail-body" id="mar-detail-a">
+			</div>
+		</div> 
+		<div class="detail-block" id="detail-b">
+			<div class="detail-header">
+				<h4 class='detail-caption'>LIVE TRIGGER EVENT LOGS <div id='trigger-count' class="count">0</div></h4>
+				<div class="detailrow">
+					<div class="srcip">SOURCEIP</div>
+					<div class="program">PROGRAM</div>
+					<div class="message">MESSAGE</div>
+					<div class="date">TIME</div>
+				</div>
+			</div>
+			<div class="detail-body" id="mar-detail-b">
+
+			</div>
+		</div>
+		<div class="detail-block" id="detail-c">
+			<div class="detail-header">
+				<h4 class='detail-caption'>EVENT ATTACK</h4>
+				<div class="detailrow">
+					<div class="src">SOURCE</div>
+					<div class="dst">DESTINATION</div>
+					<div class="sig">SIGNATURE</div>
+					<div class="srcport">SOURCE PORT</div>
+					<div class="dstport">DESTINATION PORT</div>
+				</div>
+			</div>
+			<div class="detail-body" id="mar-detail-c">
+			</div>
+		</div> 
+	</div>
+</body>
+</html>

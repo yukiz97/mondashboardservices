@@ -1,0 +1,351 @@
+body {
+	background: black;
+	font-family: sans-serif;
+	overflow: hidden;
+}
+
+.path {
+	stroke-dasharray: 300;
+	stroke-dashoffset: 1000;
+	animation: dash 15s linear forwards infinite  ;
+	stroke-width: 2;
+	stroke: url(#grad-other);
+}
+
+.path[action='ALLOW'],.path[action='pass'] {
+	stroke: url(#grad-allow);
+}
+
+.path[action='DROP'],.path[action='block'] {
+	stroke: url(#grad-deny);
+}
+
+.zoomCircle {
+	display: block;
+}
+
+@keyframes dash {
+	from { 
+		stroke-dashoffset: 3000;
+	}
+	to {
+		stroke-dashoffset: -3000;
+	}
+}
+#form-select-date {
+	color: #e0d8d8;
+	padding: 12px 0 12px 10px;
+	font-weight: bold;
+	opacity: 0.8;
+	font-size: 10px;
+	position: relative;
+}
+
+#type-map-name{
+	position: absolute;
+    top: -8px;
+    left: calc(50% - 213px);
+    font-size: 25px;
+}
+
+#maps-name{
+	position: absolute;
+    top: -8px;
+    right: 20px;
+    font-size: 20px;
+}
+
+#form-select-date label {
+	margin: 0 5px;
+}
+
+#form-select-date input, #form-select-date select {
+	border: none;
+	padding: 3px;
+	border-radius: 4px;
+	-moz-box-shadow: inset 0 0 2px #020202;
+	-webkit-box-shadow: inset 0 0 2px #020202;
+	box-shadow: inset 0 0 2px #020202;
+	text-align: center;
+	color: #5d5151;
+}
+
+#form-select-date select {
+	padding: 5px;
+}
+
+#form-select-date button {
+	border: none;
+	padding: 5px;
+	border-radius: 4px;
+	width: 30px;
+	font-weight: bold;
+	cursor: pointer;
+	color: #f3f2f2;
+	margin-left: 5px;
+}
+
+#btn-replay {
+	background: #e25e5482;
+}
+
+#btn-realtime {
+	background: #3c78a77d;
+}
+
+#svg-container {
+	background-image: url("../images/bg.png");
+	position: relative;
+	display: inline-block; /* <= shrinks container to image size */
+	transition: transform 150ms ease-in-out;
+	top: 0px;
+	max-width: 100%;
+	height: auto;
+}
+
+#svg-container img { /* <= optional, for responsiveness */
+	display: inline-block;
+	width: 50%;
+	height: auto;
+}
+
+#svg-container svg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+circle {
+	display: none;
+}
+
+#detail-display {
+	position: relative;
+	width: 99%;
+	bottom: 0px;
+	left: 0.5%;
+	font-size: 14px;
+	opacity:0.8;
+}
+
+.detail-block {
+	display: inline-block;
+	height: 100%;
+}
+
+.detail-block .detailrow {
+	padding: 3px 1px;
+}
+
+.detail-header {
+	width: 100%;
+	background: #326ea261;
+	color: #fff;
+	box-shadow: 0px 0px 3px 2px #68abca;
+	font-size: 12px;
+}
+
+.detail-body {
+	width: 100%;
+	background: #326ea261;
+	color: #fff;
+	box-shadow: 0px 0px 2px 2px #68abca;
+	margin-top: 7px;
+}
+
+.detail-header .detailrow {
+	width: 100%;
+	margin: 0;
+	font-weight: bold;
+}
+
+.detailrow[action='ALLOW'],.detailrow[action='pass']{
+	color:#25d825;
+}
+.detailrow[action='DROP'],.detailrow[action='block']{
+	color:#fb473a;
+}
+
+.detail-header .detailrow div, .detail-body .detailrow div {
+	display: inline-block;
+}
+
+#detail-a {
+	display:none;
+	width: 100%;
+	margin-right: 15px;
+}
+
+#detail-a .source {
+	width: 10%;
+	padding-left: 5px;
+}
+
+#detail-a .src {
+	width: 20%;
+	padding-left: 5px;
+}
+
+#detail-a .src_port {
+	width: 5%;
+}
+
+#detail-a .dst {
+	width: 20%;
+}
+
+#detail-a .dst_port {
+	width: 5%;
+}
+
+#detail-a .detail-header .dst {
+	margin-left: -5px
+}
+
+#detail-a .protocol {
+	width: 10%;
+}
+
+#detail-a .detail-header .protocol {
+	margin-left: -5px;
+}
+
+
+#detail-a .action {
+	width: 10%;
+}
+
+#detail-a .date {
+	width: 10%;
+	text-align:center;
+}
+
+#detail-b {
+	display:none;
+	float: right;
+	width: 70%;
+}
+
+#detail-b .detailrow {
+	padding-left: 5px;
+}
+
+#detail-b .srcip {
+	width: 120px;
+}
+
+#detail-b .program {
+	width: 140px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	margin-bottom: -5px;
+	padding-right: 10px;
+}
+
+#detail-b .detail-header .message, #detail-b .detail-body .message {
+	width: calc(100% - 420px);
+}
+
+#detail-b .detail-body .message {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	margin-bottom: -5px;
+}
+
+#detail-b .date {
+	width: 150px;
+	text-align: center;
+}
+
+#detail-c {
+	display:none;
+	width: 100%;
+}
+
+#detail-c .src {
+	width: 10%;
+}
+
+#detail-c .dst {
+	width: 10%;
+}
+
+#detail-c .sig {
+	width: 35%;
+}
+
+#detail-c .classification {
+	width: 13%;
+}
+
+#detail-c .date {
+	width: 7%;
+}
+
+#detail-c .priority {
+	width: 7%;
+}
+
+#detail-c .detail-body .sig {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	margin-bottom:-5px;
+}
+
+#detail-c .detail-body .classification {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	margin-bottom:-5px;
+}
+
+#detail-c .srcport {
+	width: 5%;
+	text-align: center;
+}
+
+#detail-c .dstport {
+	width: 5%;
+	text-align: center;
+}
+
+#detail-c .protocol {
+	width: 5%;
+	text-align: center;
+}
+
+#detail-c .detailrow {
+	padding-left: 5px;
+}
+
+.detail-caption {
+	text-align: center;
+	font-weight: bold;
+	color: #68accd;
+	padding: 5px;
+	font-size: 13px;
+	margin: 0;
+}
+
+.count {
+	display: inline-block;
+	border-radius: 5px;
+	border: 1px #68accd solid;
+	padding: 1px 10px;
+	margin-left: 2px;
+	color: white;
+}
+
+text{
+	cursor:pointer;
+}
+
+.detail-body .detailrow {
+  	border-bottom: 1px solid #467287;
+    padding: 5px 0px 3px 5px;
+}

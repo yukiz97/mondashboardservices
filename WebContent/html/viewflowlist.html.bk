@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/animate.css"/>
+	<link rel="stylesheet" href="css/sweetalert.css"/>
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="css/svgTimer.css"/>
+	<link rel="stylesheet" href="css/jquery.contextMenu.min.css">
+
+
+	<link rel="stylesheet" href="css/style.css"/>
+	<link rel="stylesheet" href="css/viewflowlist.css"/>
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/sweetalert.min.js"></script>
+	<script type="text/javascript" src="js/svgTimer.js"></script>
+	<script type="text/javascript" src="js/jquery.contextMenu.min.js"></script>
+	<script type="text/javascript" src="js/jquery.ui.position.min.js"></script>
+
+	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/viewflowlist.js"></script>
+
+	<title>Monitoring Dashboard</title>
+</head>
+<body>
+	<div class="dashboard-header" id="viewflowlist-header">
+		<img id="logo" src="images/realtech_fulllogo.png" alt="realtechlogo">
+		<div class="viewcaption">Giám sát lưu lượng sự kiện</div>
+		<div id="refresh-time">
+			
+		</div>
+	</div>
+	
+	<div class="viewlist">
+		<div class="general" id="general-flowview">
+			<marquee scrollamount='5' style='width: 100%' onmouseover="this.stop();" onmouseout="this.start();">
+			</marquee>
+		</div>
+		<div class="viewlayout">
+			<div class="viewrow header">
+				<div class="block-row ipsource">IP nguồn</div>
+				<div class="block-row ipdes">IP đích</div>
+				<div class="block-row severity">Mức độ</div>
+				<div class="block-row signature">Mẫu địch dạng sự kiện</div>
+				<div class="block-row port">Cổng</div>
+				<div class="block-row alertdot">Cảnh báo</div>
+			</div>
+			<div class="body">
+				
+			</div>
+		</div>
+	</div>
+
+	<div class="dashboard-footer" id="viewflowlist-footer">
+		<div status='unseen'><span class="signal-sign"></span> Chưa xem</div>
+		<div status='acknown'><span class="signal-sign"></span> Xác nhận</div>
+		<div status='complete'><span class="signal-sign"></span> Đã xử lý</div>
+	</div>
+</body>
+</html>

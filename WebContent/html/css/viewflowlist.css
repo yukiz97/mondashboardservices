@@ -1,0 +1,82 @@
+.flowview-config-block{
+	font-size: 12px;
+    display: inline-block;
+    padding: 5px 13px;
+    margin: 7px;
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0px 0px 2px 0px #c7c7c7;
+    cursor: pointer;
+}
+.flowview-config-block[type='iprange']{
+    background: #3474a7;
+}
+
+.flowview-config-block[type='ip']{
+    background: #c7534b;;
+}
+
+.ipsource, .ipdes {
+	width: 15%;
+}
+
+.severity {
+	width: 10%;
+	text-align: center;
+}
+
+.severity span {
+	text-align: center;
+    display: inline-block;
+    padding: 4px 5px 3px 4px;
+    font-weight: bold;
+    color: #fff;
+    box-shadow: 0px 0px 2px 1px #e8e6e6;
+    cursor: pointer;
+    width: 55px;
+    font-size: 10px;
+}
+
+.severity span[severity='1']
+{
+	background: #d25982;
+}
+.severity span[severity='2']
+{
+	background: #d49555;
+}
+
+.signature {
+	width: 45%;
+}
+
+.body .signature {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+
+.port {
+	width: 5%;
+	text-align: center;
+}
+
+.alertdot {
+	width: 5%;
+	text-align: right;
+}
+
+.alertdot span[check='-1'] {
+	background: #d62626;
+	animation: ripple-high 3s linear infinite;
+}
+
+.alertdot span[check='0'] {
+	background: #e27552;
+	animation: ripple-medium 3s linear infinite;
+}
+
+.alertdot span[check='1'] {
+	background: green;
+}

@@ -1,0 +1,101 @@
+.swiper-container{
+	height: calc(100% - 45px);
+	width: 100%;
+}
+
+.swiper-wrapper{
+	margin: auto;
+	height: 100%;
+	width: 100%;
+}
+
+.slide{
+	position: relative;
+	width: 800px;
+	height: 500px;
+	margin: auto;
+	top:calc(50% - 250px);
+}
+
+.img-slider{
+	height: 100%;
+	width: 100%;
+}
+
+.drag-item {
+	display: inline-block;
+	width: 22px;
+	height: 22px;
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	background: #ffffff;
+	padding: 2px 3px;
+	box-shadow: 1px 1px 1px 1px #a7a7a7;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+.drag-item[status="ok"]
+{
+	border: 3px solid #44b744;
+}
+.drag-item[status="notok"]
+{
+	border: 3px solid #ea5c5c;
+	animation: ripple 3s linear infinite;
+}
+
+.drag-item i{
+    border-radius: 50%;
+    padding: 1px;
+    font-size: 11px;
+    color: #fff;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    text-align: center;
+}
+
+.drag-item[status="ok"] i
+{
+	background: #44b744;
+	/* font-size: 12px;
+	padding-left: 2px; */
+}
+.drag-item[status="notok"] i
+{
+	/* font-size: 13px; */
+	background: #ea5c5c;
+}
+
+@keyframes ripple {
+	0% {
+		box-shadow: 0 0 0 0 #ff353521,
+		0 0 0 0.25em #ff353521,
+		0 0 0 0.5em #ff353521,
+		0 0 0 0.75em #ff353521;
+	}
+	80% {
+		box-shadow: 0 0 0 1em #ff353521,
+		0 0 0 1.5em #ff353521,
+		0 0 0 2em #ff353521,
+		0 0 0 2.5em #ff353521;
+	}
+	90% {
+		box-shadow: 0 0 0 1em #ff353514,
+		0 0 0 1.5em #ff353514,
+		0 0 0 2em #ff353514,
+		0 0 0 2.5em #ff353514;
+	}
+	100% {
+		box-shadow: 0 0 0 1em #ffffff21,
+		0 0 0 1.5em #ffffff21,
+		0 0 0 2em #ffffff21,
+		0 0 0 2.5em #ffffff21;
+	}
+}
+

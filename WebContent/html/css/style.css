@@ -1,0 +1,361 @@
+html,body{
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body{
+	background-color: #222;
+	color: #e8edec;
+}
+
+/*--------------- Trang general ------------*/
+#main-layout{
+	height: 100%;
+	width: 100%;
+}
+
+/* Left menu */
+#left-menu{
+	display: inline-block;
+	height: 100%;
+	width: 60px;
+	background: #3e3440;
+	box-shadow: 1px 0px 2px 1px #c7c7c7;
+}
+
+#menu-item-container{
+	height: 100%;
+	text-align: center;
+}
+
+#menu-item-container .menu-item{
+	position: relative;
+	color: #fff;
+    height: 25%;
+    background: #53a1c3;
+    box-shadow: 0px 2px 4px 2px #ececec;
+    cursor: pointer;
+    text-align: center;
+}
+#menu-item-container .menu-item:hover .btn-groupshow{
+	display: block;
+}
+#menu-item-container .menu-item .menu-name{
+	transform: rotate(-91deg);
+    position: absolute;
+    font-size: 17px;
+    font-weight: bold;
+    text-transform: uppercase;
+    top: 41%;
+}
+#menu-item-container .menu-item .btn-groupshow{
+	display: none;
+    position: absolute;
+    right: -60px;
+    z-index: 9999;
+    opacity: 0.8;
+    width: 60px;
+	transition: 0.45s all;
+}
+#menu-item-container .menu-item .btn-groupshow i{
+	padding-top: 50%;
+	
+}
+#menu-item-container .menu-item .btn-view,#menu-item-container .menu-item .btn-show{
+    box-shadow: 0px 0px 2px 0px #4c4444;
+    cursor: pointer;
+   	padding: 3px;
+    height: 50%;
+    font-size: 25px;
+    opacity: 0.8;
+}
+/* #menu-item-container .menu-item{
+	background: url(../images/techgradient.jpg)fixed center;
+	position: relative;
+	cursor: pointer;
+	height: 60px;
+	width: 60px;
+	border-radius: 50%;
+	margin: 0 auto 15px auto;
+	line-height: 1.5;
+	padding-top: 13px;
+	font-weight: bold;
+	color: #f3f1f1;
+	transition: 0.35s all;
+	text-shadow: 1px 1px #000000;
+}
+
+#menu-item-container .menu-item:hover{
+	box-shadow: 0px 0px 2px 2px #86d9ff;
+	border-radius: 0px;
+	height: 120px;
+	background: url(../images/techgradient.jpg) fixed center;
+}
+
+#menu-item-container .menu-item:hover .btn-groupshow{
+	display: block;
+}
+
+#menu-item-container .menu-item .btn-groupshow div:hover{
+	background: #347fbb;
+}
+
+#menu-item-container .menu-item .btn-groupshow{
+	position: absolute;
+	display: none;
+	font-size: 11px;
+	bottom: 3px; 
+	width: 86%;
+    left: 7%;
+}
+
+#menu-item-container .menu-item .btn-view,#menu-item-container .menu-item .btn-show{
+	margin-top: 5px;
+    background: #439e96;
+    padding: 3px;
+    box-shadow: 0px 0px 2px 0px #4c4444;
+    cursor: pointer;
+	margin-top: 5px;
+    background: #347fbbc2;
+    padding: 3px;
+    box-shadow: 0px 0px 2px 0px #4c4444;
+    cursor: pointer;
+} */
+
+/* Right content */
+#right-content{
+	display: inline-block;
+	height: 100%;
+	width: calc(100% - 60px);
+	background: #f7f7f7;
+	float: right;
+	position: relative;
+}
+
+/*---------------- Trang dashboard ----------------*/
+/* dashboard css chung */
+.dashboard-header{
+	position: relative;
+	height: 45px;
+	padding: 8px 12px;
+	background: black;
+	box-shadow: 0px 1px 2px 0px #c7c7c7;
+}
+.dashboard-header #logo{
+	height: 100%;
+}
+
+.dashboard-footer{
+	height: 40px;
+	padding: 8px 12px;
+	background: black;
+	box-shadow: 0px -1px 2px 0px #c7c7c7;
+	text-align: center;
+}
+.dashboard-footer >div{
+	display: inline-block;
+	margin: 4px 15px;
+	font-weight: bold;
+}
+.dashboard-footer .signal-sign{
+	display: inline-block;
+	height: 15px;
+	width: 15px;
+	border-radius: 50%;
+	background: red;
+}
+.dashboard-footer >div[status='unseen'] .signal-sign{
+	background: #d62626;
+}
+.dashboard-footer >div[status='unseen']{
+	color: #d62626;
+}
+.dashboard-footer >div[status='acknown'] .signal-sign{
+	background: #e27552;
+}
+.dashboard-footer >div[status='acknown']{
+	color: #e27552;
+}
+.dashboard-footer >div[status='complete'] .signal-sign{
+	background: green;
+}
+.dashboard-footer >div[status='complete']{
+	color: green;
+}
+#refresh-time{
+	position: absolute;
+	right: 4px;
+	top: 0px;
+	display: inline-block;
+	height: 43px;
+	width: 43px;
+}
+#refresh-time .svg-hexagonal-counter{
+	height: 100%;
+	width: 100%;
+}
+#refresh-time .counter{
+	height: 100%;
+	width: 100%;
+}
+#refresh-time path{
+	display:none;
+}
+#refresh-time h2{
+	font-family: cursive;
+    font-size: 13px;
+    text-align: center;
+    position: absolute;
+    line-height: 26px;
+    width: 100%;
+    font-weight: bold;
+    color: #e44034;
+    height: 30px;
+    width: 30px;
+    /* background: red; */
+    top: -12px;
+    border-radius: 50%;
+    border: 2px solid #3580a2;
+    right: 6px;
+}
+
+/*View dashboard*/
+.viewcaption{
+	position: absolute;
+    display: inline-block;
+    padding: 3px 25px 4px 25px;
+    font-weight: bold;
+    color: rgb(204, 204, 204);
+    top: -3px;
+    font-size: 33px;
+    border-radius: 40px;
+    text-transform: uppercase;
+	margin: 0 120px;
+}
+
+.viewlist{
+	padding: 8px;
+	height: calc(100% - 45px);
+}
+
+.viewlist .general{
+	height: 40px;
+	background: #000;
+	box-shadow: 0px 0px 2px 0px #c7c7c7;
+}
+.viewlist .viewlayout{
+	height: calc(100% - 48px);
+	margin-top: 8px;
+	padding: 0px 10px;
+	background: black;
+	box-shadow: 0px 0px 2px 0px #c7c7c7;
+	font-size: 12px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.viewlist .viewlayout::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 0px;
+	background-color: #F5F5F5;
+}
+
+.viewlist .viewlayout::-webkit-scrollbar
+{
+	width: 5px;
+	background-color: #F5F5F5;
+}
+
+.viewlist .viewlayout::-webkit-scrollbar-thumb
+{
+	border-radius: 0px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #4f9be8;
+}
+
+.viewlist .viewlayout .header {
+	padding: 10px 0px;
+	color: #cccccc;
+	border-bottom: 1px solid #e4e4e4;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.viewlist .viewlayout .body {
+	color: #999999;
+	cursor: pointer;
+	border-bottom: 1px solid #e4e4e4;
+}
+.viewlist .viewlayout .block-row {
+	display: inline-block;
+}
+
+.viewlist .viewlayout .body .viewrow {
+	cursor: pointer;
+	padding: 5px 5px 10px 5px;
+	border-bottom: 1px solid rgb(42, 42, 42);
+	font-size: 14px;
+}
+.viewlist .viewlayout .body .viewrow:nth-child(even) {
+	background: #161616;
+}
+.viewlist .viewlayout .body .viewrow:hover {
+	box-shadow: inset 0px 0px 2px 1px #d4d4d4;
+}
+
+.alertdot span {
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	position: relative;
+	top: 3px;
+}
+
+
+.alertdot span[check='-1'] {
+	background: #d62626;
+	animation: ripple-high 3s linear infinite;
+}
+
+.alertdot span[check='0'] {
+	background: #e27552;
+	animation: ripple-medium 3s linear infinite;
+}
+
+.alertdot span[check='1'] {
+	background: green;
+}
+
+@keyframes ripple-high{
+	0% {
+		box-shadow: 0 0 0 0 #ff353521,
+		0 0 0 0.1em #ff353521,
+		0 0 0 0.2em #ff353521,
+		0 0 0 0.3em #ff353521;
+	}
+	100% {
+		box-shadow: 0 0 0 0.8em #ffffff21,
+		0 0 0 0.9em #ffffff21,
+		0 0 0 1em #ffffff21,
+		0 0 0 1.1em #ffffff21;
+	}
+}
+@keyframes ripple-medium{
+	0% {
+		box-shadow: 0 0 0 0 #ca601621,
+		0 0 0 0.1em #ca601621,
+		0 0 0 0.2em #ca601621,
+		0 0 0 0.3em #ca601621;
+	}
+	100% {
+		box-shadow: 0 0 0 0.8em #ca60160f,
+		0 0 0 0.9em #ca60160f,
+		0 0 0 1em #ca60160f,
+		0 0 0 1.1em #ca60160f;
+	}
+}

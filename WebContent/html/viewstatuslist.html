@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/animate.css"/>
+	<link rel="stylesheet" href="css/sweetalert.css"/>
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="css/svgTimer.css"/>
+	<link rel="stylesheet" href="css/jquery.contextMenu.min.css">
+
+
+	<link rel="stylesheet" href="css/style.css"/>
+	<link rel="stylesheet" href="css/viewstatuslist.css"/>
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/sweetalert.min.js"></script>
+	<script type="text/javascript" src="js/svgTimer.js"></script>
+	<script type="text/javascript" src="js/jquery.contextMenu.min.js"></script>
+	<script type="text/javascript" src="js/jquery.ui.position.min.js"></script>
+
+	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/viewstatuslist.js"></script>
+
+	<title>Monitoring Dashboard</title>
+</head>
+<body>
+	<div class="dashboard-header" id="viewstatuslist-header">
+		<img id="logo" src="images/realtech_fulllogo.png" alt="realtechlogo">
+		<div class="viewcaption">Giám sát trạng thái</div>
+		<div id="refresh-time">
+			
+		</div>
+	</div>
+	
+	<div class="viewlist">
+		<div class="general" id="general-statusview">
+			<button class="btn-change-type btn btn-primary btn-sm" type="host"><i class="fa fa-eye"></i> Xem tình trạng host</button>
+			<button class="btn-change-type btn btn-primary btn-sm" type="service"><i class="fa fa-eye"></i> Xem tình trạng service</button>
+		</div>
+		<div class="viewlayout">
+			<div class="viewrow header">
+				<div class="block-row timestamp">Thời gian</div>
+				<div class="block-row name">Host</div>
+				<div class="block-row state">Tình trạng hiện tại</div>
+				<div class="block-row state">Tình trạng trước</div>
+				<div class="block-row output">Thông tin trạng thái</div>
+				<div class="block-row alertdot">Cảnh báo</div>
+			</div>
+			<div class="body">
+				
+			</div>
+		</div>
+	</div>
+	<div class="dashboard-footer" id="viewstatuslist-footer">
+		<div status='unseen'><span class="signal-sign"></span> Chưa xem</div>
+		<div status='acknown'><span class="signal-sign"></span> Xác nhận</div>
+		<div status='complete'><span class="signal-sign"></span> Đã xử lý</div>
+	</div>
+</body>
+</html>

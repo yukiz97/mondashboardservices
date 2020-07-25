@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<hosts>
+	
+<host hostname="FPT_vHosting" id="103.39.93.77">
+      <triggers>
+         <trigger date="04-09-2019 11:11:33" description="Logon Web Client success" facility="" id="0b50cba3_3cbb_4114_98db_fd7c7d2314ed" priority="1" program="Hostd" serverity="">
+            <keyword_01>Accepted password for user root from</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="04-09-2019 11:18:46" description="Logon Web Client failed" facility="" id="6ae12c65_fbf8_4110_9f3b_cac4bbcdc612" priority="1" program="" serverity="">
+            <keyword_01>Rejected password for user root from</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+      </triggers>
+   </host>
+   <host hostname="TW-UC" id="192.168.3.7">
+      <triggers>
+         <trigger date="09-09-2019 13:25:54" description="Login SSH refused" facility="" id="a83f23dd_9f8e_47c2_80e7_0c1a0e434493" priority="1" program="" serverity="">
+            <keyword_01>refused connect from</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+      </triggers>
+   </host>
+   
+<host hostname="UTM Firewall Cong ty" id="192.168.1.254">
+      <triggers>
+         <trigger date="04-10-2019 14:06:34" description="Dang nhap UTM" facility="" id="831a8d07_10a2_46ef_978b_ef6ac5b7a5cf" priority="1" program="" serverity="">
+            <keyword_01>nhập thành công</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+      </triggers>
+   </host>
+   <host hostname="test" id="192.168.1.73">
+      <triggers>
+         <trigger date="07-10-2019 08:51:33" description="login" facility="" id="8ae46191_5e9d_418e_84c1_a1ce3063ffee" priority="1" program="" serverity="">
+            <keyword_01>4624</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+      </triggers>
+   </host>
+<host hostname="win_2016" id="192.168.1.45">
+      <triggers>
+         <trigger date="16-10-2019 14:00:01" description="thay doi thong tin user" facility="" id="8a9a7e5c_ef2c_4291_8cf1_c8d79437ec87" priority="1" program="" serverity="">
+            <keyword_01>4738</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="16-10-2019 14:03:44" description="Thêm user vào security-enabled global group" facility="" id="688ab046_f12b_4d76_b727_c1772f063a61" priority="1" program="" serverity="">
+            <keyword_01>4728</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="16-10-2019 14:04:34" description="Security-enabled global group được tạo" facility="" id="9ba930f7_3279_4001_bb81_43de3171f984" priority="1" program="" serverity="">
+            <keyword_01>4727</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+      </triggers>
+   </host>
+   
+<host hostname="audit win 2016" id="192.168.1.90">
+      <triggers>
+         <trigger date="17-10-2019 14:48:08" description="audit folder &amp; file" facility="" id="784c5035_7bab_4a8e_ad0e_83e39edc2b64" priority="1" program="" serverity="">
+            <keyword_01>4663</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="17-10-2019 14:48:43" description="audit registry" facility="" id="4c46ba4b_e31c_4335_97fd_67a4eb0cdb61" priority="1" program="" serverity="">
+            <keyword_01>4657</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="17-10-2019 14:55:20" description="Windows Firewall Service bị stop" facility="" id="cbe93bcf_1284_433b_b45c_a167f67abe00" priority="1" program="" serverity="">
+            <keyword_01>5025</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="17-10-2019 14:57:56" description="Service logging bị tắt" facility="" id="68cb5049_f837_415c_a915_246855f9c169" priority="1" program="" serverity="">
+            <keyword_01>1100</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="17-10-2019 14:59:03" description="Windows Firewall setting đã bị thay đổi" facility="" id="45334cd4_7863_467d_97b3_bc0df751b909" priority="1" program="" serverity="">
+            <keyword_01>4950</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="17-10-2019 14:59:36" description="event log bị xoá" facility="" id="a3725301_0a7b_4d6e_b10c_4b17204113ef" priority="1" program="" serverity="">
+            <keyword_01>1102</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="17-10-2019 15:00:23" description="Một dịch vụ đã được cài đặt trong hệ thống" facility="" id="d6b17068_992c_4198_8107_1547803e8c9b" priority="1" program="" serverity="">
+            <keyword_01>4697</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="17-10-2019 15:00:49" description="Thời gian hệ thống đã được thay đổi" facility="" id="23e587d6_d481_4f14_ab9a_eab281243e3c" priority="1" program="" serverity="">
+            <keyword_01>4616</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="17-10-2019 15:03:38" description="phần mềm vừa được cài đặt" facility="" id="3fbb60d1_8d2b_4d4c_a98a_2d4ccb857e24" priority="1" program="" serverity="">
+            <keyword_01>11707</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="17-10-2019 15:04:08" description="phần mềm vừa được xoá" facility="" id="a2a13c09_eb0e_4800_acb8_da50381a41b1" priority="1" program="" serverity="">
+            <keyword_01>11724</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+      <trigger date="17-10-2019 15:42:37" description="Một xác thực Kerberos ticket (TGT) đã được yêu cầu" facility="" id="e5a813eb_29a1_4f19_b19a_196ae0b3cd58" priority="1" program="" serverity="">
+            <keyword_01>4768</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="17-10-2019 15:43:21" description="đăng nhập thành công" facility="" id="48a37219_6899_4937_8e48_8b4cae376180" priority="1" program="" serverity="">
+            <keyword_01>4624</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="17-10-2019 15:43:55" description="User vừa logoff&#10;" facility="" id="feed6e73_312b_4897_b072_f3b00f8af649" priority="1" program="" serverity="">
+            <keyword_01>4634</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="17-10-2019 15:44:34" description="Một nỗ lực đăng nhập đã được thực hiện với thông tin rõ ràng" facility="" id="cffec84c_115a_4100_bdad_f165645ba4ab" priority="1" program="" serverity="">
+            <keyword_01>4648</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="17-10-2019 15:45:10" description="Một user mới đã được tạo" facility="" id="8adeaf79_315e_41bc_a680_9e77b7ec6976" priority="1" program="" serverity="">
+            <keyword_01>4720</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="17-10-2019 15:45:47" description="User bị thay đổi thông tin" facility="" id="222f121e_4feb_4f88_9119_46837f2fb11b" priority="1" program="" serverity="">
+            <keyword_01>4738</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="17-10-2019 15:46:24" description="Computer account được tạo&#10;&#10;" facility="" id="682d4aa7_98d6_4a71_8d4e_3bd777621f18" priority="1" program="" serverity="">
+            <keyword_01>4741</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="17-10-2019 15:46:53" description="Thêm user vào Security Local group" facility="" id="ec37ee58_8db5_4128_9085_20b1d45d8bdf" priority="1" program="" serverity="">
+            <keyword_01>4732</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="17-10-2019 15:47:15" description="Security-enabled global group được tạo" facility="" id="9c2670f2_7372_4ce6_b238_55ef2ce40fe2" priority="1" program="" serverity="">
+            <keyword_01>4727</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="17-10-2019 15:47:37" description="Thêm user vào security-enabled global group&#10;" facility="" id="7ddf36ea_bf96_496b_a5e4_8b8d490922c0" priority="1" program="" serverity="">
+            <keyword_01>4728</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+         <trigger date="17-10-2019 15:48:13" description="Thông tin group bị thay đổi " facility="" id="bceb1720_a53f_4cef_991d_2e1d84a76300" priority="1" program="" serverity="">
+            <keyword_01>4764</keyword_01>
+            <keyword_02/>
+            <keyword_03/>
+            <keyword_04/>
+            <keyword_05/>
+         </trigger>
+      </triggers>
+   </host>
+</hosts>

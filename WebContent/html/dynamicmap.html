@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/animate.css"/>
+	<link rel="stylesheet" href="css/sweetalert.css"/>
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"/>
+
+	<link rel="stylesheet" href="css/style.css"/>
+	<link rel="stylesheet" href="css/dynamicmapnew.css"/>
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/dynamicmapnew.js"></script>
+
+	<title>IT Monitoring Appliance | Màn hình giám sát</title>
+</head>
+<body>
+	<div id="form-select-date">
+		<label for="formdate">Ngày</label>
+		<input type="date" id="formdate" value='2019-11-18'/>
+
+		<label for="formhour">Giờ</label>
+		<select id="formhour">
+			
+		</select>
+
+		<label for="formfrommenute">Từ phút</label>
+		<select id="formfrommenute">
+			
+		</select>
+
+		<label for="formtomenute">đến phút</label>
+		<select id="formtomenute">
+			
+		</select>
+		<button id="btn-replay" title="Xem lại"><i class='fa fa-step-backward'></i></button>
+		<button id="btn-realtime" title="Xem trực tuyến"><i class='fa fa-play'></i></button>
+		
+		<h2 id="type-map-name"></h2>
+		<h2 id="maps-name"></h2>
+	</div>
+	<div id="svg-container">
+		<img id="img-left" src=""/>
+		<img id="img-right" style='float:right' src=""/>
+	</div>
+	<div id="detail-display">
+		<div class="detail-block" id="detail-a">
+			<div class="detail-header">
+				<h4 class='detail-caption'>DANH SÁCH CÁC KẾT NỐI <div id='attack-count' class="count">0</div></h4>
+				<div class="detailrow">
+					<div class="source">Nguồn dữ liệu</div>
+					<div class="src">Địa chỉ IP nguồn</div>
+					<div class="src_port">Cổng nguồn</div>
+					<div class="dst">Địa chỉ IP đích</div>
+					<div class="dst_port">Cổng đích</div>
+					<div class="protocol">Giao thức</div>
+					<div class="action">Hành động</div>
+					<div class="date">Thời gian</div>
+				</div>
+			</div>
+			<div class="detail-body" id="mar-detail-a">
+			</div>
+		</div> 
+		<div class="detail-block" id="detail-b">
+			<div class="detail-header">
+				<h4 class='detail-caption'>LIVE TRIGGER EVENT LOGS <div id='trigger-count' class="count">0</div></h4>
+				<div class="detailrow">
+					<div class="srcip">HOST</div>
+					<div class="program">PROGRAM</div>
+					<div class="message">MESSAGE</div>
+					<div class="date">TIME</div>
+				</div>
+			</div>
+			<div class="detail-body" id="mar-detail-b">
+
+			</div>
+		</div>
+		<div class="detail-block" id="detail-c">
+			<div class="detail-header">
+				<h4 class='detail-caption'>DANH SÁCH DẤU HIỆU TẤN CÔNG</h4>
+				<div class="detailrow">
+					<div class="src">Địa chỉ IP nguồn</div>
+					<div class="srcport">Cổng nguồn</div>
+					<div class="dst">Địa chỉ IP đích</div>
+					<div class="dstport">Cổng đích</div>
+					<div class="protocol">Giao thức</div>
+					<div class="priority">Mức độ</div>
+					<div class="sig">Mẫu dữ liệu nhận dạng tấn công</div>
+					<div class="classification">Phân loại</div>
+					<div class="date">Thời gian</div>
+				</div>
+			</div>
+			<div class="detail-body" id="mar-detail-c">
+			</div>
+		</div> 
+	</div>
+</body>
+</html>
