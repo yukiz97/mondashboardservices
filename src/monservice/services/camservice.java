@@ -474,7 +474,7 @@ public class camservice {
 				database = new File(getClass().getClassLoader().getResource("GeoLite2-City.mmdb").getFile());
 			} else
 			{
-				database = new File("");
+				database = new File(""); 
 			}
 			reader = new DatabaseReader.Builder(database).build();
 		} catch (IOException e) {
