@@ -274,6 +274,10 @@ circle {
 	width: 10%;
 }
 
+#detail-c .detail-header .dst {
+	margin-left:-5px;
+}
+
 #detail-c .sig {
 	width: 35%;
 }
@@ -290,6 +294,26 @@ circle {
 	width: 7%;
 }
 
+#detail-c .priority span {
+	display: inline-block;
+    padding: 2px 0px;
+    width: 80%;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px 2px #212121;
+}
+#detail-c .priority span[priority='1'] {
+	background: red;
+}
+#detail-c .priority span[priority='2'] {
+	background: orange;
+}
+
+#detail-c .detail-header .sig {
+	margin-left:-15px;
+}
+
 #detail-c .detail-body .sig {
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -302,6 +326,10 @@ circle {
 	text-overflow: ellipsis;
 	overflow: hidden;
 	margin-bottom:-5px;
+}
+
+#detail-c .detail-header .classification {
+	margin-left:-5px;
 }
 
 #detail-c .srcport {

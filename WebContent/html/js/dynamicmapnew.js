@@ -691,7 +691,7 @@ $(document).ready(function(){
 		"<div class='dst'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+flagDes+".svg' title='"+desIp+"' /> "+desIp+"</div>"+
 		"<div class='dstport'>"+desPort+"</div>"+
 		"<div class='protocol'>"+protocol+"</div>"+
-		"<div class='priority'>"+priority+"</div>"+
+		"<div class='priority'><span priority='"+priority+"'>"+(priority == 1 ? "HIGH" : "MEDIUM")+"</span></div>"+
 		"<div class='sig'>"+signature+"</div>"+	
 		"<div class='classification'>"+classification+"</div>"+	
 		"<div class='date'>"+formattedTime+"</div>"+
