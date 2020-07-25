@@ -36,6 +36,7 @@ import monservice.utils.CheckIpInIpRange;
 import monservice.utils.DynamicMapServiceUtils;
 import monservice.utils.MonConfigPropertiesUtil;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.validator.routines.InetAddressValidator;
 import org.bson.Document;
 
@@ -469,7 +470,12 @@ public class camservice {
 		super();
 		try {
 			System.out.println("initialize maxmin");
-			database = new File(getClass().getClassLoader().getResource("GeoLite2-City.mmdb").getFile());
+			if(SystemUtils.IS_OS_WINDOWS) {
+				database = new File(getClass().getClassLoader().getResource("GeoLite2-City.mmdb").getFile());
+			} else
+			{
+				database = new File("");
+			}
 			reader = new DatabaseReader.Builder(database).build();
 		} catch (IOException e) {
 			e.printStackTrace();
