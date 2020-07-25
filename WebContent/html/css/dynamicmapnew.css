@@ -304,10 +304,10 @@ circle {
     box-shadow: 1px 1px 2px 2px #212121;
 }
 #detail-c .priority span[priority='1'] {
-	background: red;
+	background: #db7093;
 }
 #detail-c .priority span[priority='2'] {
-	background: orange;
+	background: #daa520;
 }
 
 #detail-c .detail-header .sig {
