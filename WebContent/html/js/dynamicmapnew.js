@@ -361,7 +361,7 @@ $(document).ready(function(){
 
 		var heightDisplay = $("#mar-detail-a").height();
 
-		var limit = returnLimit(heightDisplay,30);
+		var limit = returnLimit(heightDisplay,33);
 
 		var i;
 
@@ -441,7 +441,7 @@ $(document).ready(function(){
 
 		var heightDisplay = $("#mar-detail-c").height();
 
-		var limit = returnLimit(heightDisplay,30);
+		var limit = returnLimit(heightDisplay,33);
 
 		var i;
 
