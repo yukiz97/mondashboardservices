@@ -19,7 +19,16 @@ body {
 .path[action='DROP'],.path[action='block'] {
 	stroke: url(#grad-deny);
 }
+.path[action='HIGH']{
+	stroke: url(#grad-high);
+}
 
+.path[action='MEDIUM']{
+	stroke: url(#grad-medium);
+}
+.path[action='LOW']{
+	stroke: url(#grad-low);
+}
 .zoomCircle {
 	display: block;
 }
@@ -308,6 +317,9 @@ circle {
 }
 #detail-c .priority span[priority='2'] {
 	background: #daa520;
+}
+#detail-c .priority span[priority='3'] {
+	background: #228b22;
 }
 
 #detail-c .detail-header .sig {

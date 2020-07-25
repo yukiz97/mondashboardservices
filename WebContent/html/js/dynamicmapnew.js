@@ -9,7 +9,10 @@ $(document).ready(function(){
 	var gradientAllow = "<linearGradient id='grad-allow'> <stop stop-color='#11998e'/> <stop offset='100%' stop-color='#38ef7d'/> </linearGradient>";
 	var gradientDeny = "<linearGradient id='grad-deny'> <stop stop-color='#4d0000'/> <stop offset='100%' stop-color='#ff3333'/> </linearGradient>";
 	var gradientOther = "<linearGradient id='grad-other'> <stop stop-color='#C9D6FF'/> <stop offset='100%' stop-color='#E2E2E2'/> </linearGradient>";
-
+	var gradientHigh = "<linearGradient id='grad-high'> <stop stop-color='#ae5a75'/> <stop offset='100%' stop-color='#ae5a75'/> </linearGradient>";
+	var gradientMedium = "<linearGradient id='grad-medium'> <stop stop-color='#ae831a'/> <stop offset='100%' stop-color='#ae831a'/> </linearGradient>";
+	var gradientLow = "<linearGradient id='grad-low'> <stop stop-color='#228b22'/> <stop offset='100%' stop-color='#228b22'/> </linearGradient>";
+	
 	var leftCode;
 	var rightCode;
 	
@@ -97,7 +100,7 @@ $(document).ready(function(){
 				mapRight.items.forEach(function(item){
 					circleString += "<circle code='"+item.code+"' name='"+item.name+"' fill='#ED1C24' cx='"+(item.x+950)+"' cy='"+item.y+"' submap='"+item.mapLevel2Id+"' side='right' r='1'/>";
 				});
-				$("#svg-container").append(svgTag+gradientAllow+gradientDeny+gradientOther+circleString+"</svg>");
+				$("#svg-container").append(svgTag+gradientAllow+gradientDeny+gradientOther+gradientHigh+gradientMedium+gradientLow+circleString+"</svg>");
 			
 				leftCode = mapLeft.code;
 				rightCode = mapRight.code;
@@ -212,7 +215,8 @@ $(document).ready(function(){
 								arrayDetailC[countItem++] = detail;
 							}
 							arrayData.push(item.from+"-"+item.to);
-							appendDisplay(item.from,item.to,null);
+							
+							appendDisplay(item.from,item.to,(item.priority == 1 ? "HIGH" : item.priority == 2 ? "MEDIUM" : "LOW"));
 			  			}
 					});
 					console.log(arrayData);
@@ -691,7 +695,7 @@ $(document).ready(function(){
 		"<div class='dst'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+flagDes+".svg' title='"+desIp+"' /> "+desIp+"</div>"+
 		"<div class='dstport'>"+desPort+"</div>"+
 		"<div class='protocol'>"+protocol+"</div>"+
-		"<div class='priority'><span priority='"+priority+"'>"+(priority == 1 ? "HIGH" : "MEDIUM")+"</span></div>"+
+		"<div class='priority'><span priority='"+priority+"'>"+(priority == 1 ? "HIGH" : priority == 2 ? "MEDIUM" : "LOW")+"</span></div>"+
 		"<div class='sig'>"+signature+"</div>"+	
 		"<div class='classification'>"+classification+"</div>"+	
 		"<div class='date'>"+formattedTime+"</div>"+
