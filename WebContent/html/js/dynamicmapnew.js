@@ -198,7 +198,7 @@ $(document).ready(function(){
 					
 					console.log(arrayData);
 					
-					$("#attack-count").html(countItem);
+					$("#connect-count").html(countItem);
 					displayToScreenDetailA();
 
 					intervalDetailA = setInterval(function() {
@@ -227,6 +227,7 @@ $(document).ready(function(){
 					});
 					console.log(arrayData);
 					
+					$("#attack-count").html(countItem);					
 					displayToScreenDetailC();
 
 					intervalDetailC = setInterval(function() {
