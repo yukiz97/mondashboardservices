@@ -1,58 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
-	<link rel="stylesheet" href="css/animate.css"/>
-	<link rel="stylesheet" href="css/sweetalert.css"/>
-	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"/>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/animate.css" />
+<link rel="stylesheet" href="css/sweetalert.css" />
+<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" />
 
-	<link rel="stylesheet" href="css/style.css"/>
-	<link rel="stylesheet" href="css/dynamicmapnew.css"/>
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/dynamicmapnew.css" />
 
-	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 
-	<script type="text/javascript" src="js/script.js"></script>
-	<script type="text/javascript" src="js/dynamicmapnew.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/dynamicmapnew.js"></script>
+<script type="text/javascript" src="js/dynamicmapnewfilter.js"></script>
 
-	<title>IT Monitoring Appliance | Màn hình giám sát</title>
+<title>IT Monitoring Appliance | Màn hình giám sát</title>
 </head>
 <body>
 	<div id="form-select-date">
-		<label for="formdate">Ngày</label>
-		<input type="date" id="formdate" value='2019-11-18'/>
+		<label for="formdate">Ngày</label> <input type="date" id="formdate"
+			value='2019-11-18' /> <label for="formhour">Giờ</label> <select
+			id="formhour">
 
-		<label for="formhour">Giờ</label>
-		<select id="formhour">
-			
-		</select>
+		</select> <label for="formfrommenute">Từ phút</label> <select
+			id="formfrommenute">
 
-		<label for="formfrommenute">Từ phút</label>
-		<select id="formfrommenute">
-			
-		</select>
+		</select> <label for="formtomenute">đến phút</label> <select id="formtomenute">
 
-		<label for="formtomenute">đến phút</label>
-		<select id="formtomenute">
-			
 		</select>
-		<button id="btn-replay" title="Xem lại"><i class='fa fa-step-backward'></i></button>
-		<button id="btn-realtime" title="Xem trực tuyến"><i class='fa fa-play'></i></button>
-		
+		<button id="btn-replay" title="Xem lại">
+			<i class='fa fa-step-backward'></i>
+		</button>
+		<button id="btn-realtime" title="Xem trực tuyến">
+			<i class='fa fa-play'></i>
+		</button>
+		<button id="btn-filter" title="Bộ lọc" data-toggle="modal"
+			data-target="#modal-filter">
+			<i class='fa fa-search'></i>
+		</button>
+
 		<h2 id="type-map-name"></h2>
 		<h2 id="maps-name"></h2>
 	</div>
 	<div id="svg-container">
-		<img id="img-left" src=""/>
-		<img id="img-right" style='float:right' src=""/>
+		<img id="img-left" src="" /> <img id="img-right" style='float: right'
+			src="" />
 	</div>
 	<div id="detail-display">
 		<div class="detail-block" id="detail-a">
 			<div class="detail-header">
-				<h4 class='detail-caption'>DANH SÁCH CÁC KẾT NỐI <div id='attack-count' class="count">0</div></h4>
+				<h4 class='detail-caption'>
+					DANH SÁCH CÁC KẾT NỐI
+					<div id='attack-count' class="count">0</div>
+				</h4>
 				<div class="detailrow">
 					<div class="source">Nguồn dữ liệu</div>
 					<div class="src">Địa chỉ IP nguồn</div>
@@ -64,12 +69,14 @@
 					<div class="date">Thời gian</div>
 				</div>
 			</div>
-			<div class="detail-body" id="mar-detail-a">
-			</div>
-		</div> 
+			<div class="detail-body" id="mar-detail-a"></div>
+		</div>
 		<div class="detail-block" id="detail-b">
 			<div class="detail-header">
-				<h4 class='detail-caption'>LIVE TRIGGER EVENT LOGS <div id='trigger-count' class="count">0</div></h4>
+				<h4 class='detail-caption'>
+					LIVE TRIGGER EVENT LOGS
+					<div id='trigger-count' class="count">0</div>
+				</h4>
 				<div class="detailrow">
 					<div class="srcip">HOST</div>
 					<div class="program">PROGRAM</div>
@@ -77,9 +84,7 @@
 					<div class="date">TIME</div>
 				</div>
 			</div>
-			<div class="detail-body" id="mar-detail-b">
-
-			</div>
+			<div class="detail-body" id="mar-detail-b"></div>
 		</div>
 		<div class="detail-block" id="detail-c">
 			<div class="detail-header">
@@ -96,9 +101,80 @@
 					<div class="date">Thời gian</div>
 				</div>
 			</div>
-			<div class="detail-body" id="mar-detail-c">
-			</div>
-		</div> 
+			<div class="detail-body" id="mar-detail-c"></div>
+		</div>
 	</div>
 </body>
 </html>
+
+<div id="modal-filter" class="modal fade" role="dialog">
+	<div class="modal-dialog  modal-lg">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Bộ lọc nâng cao</h4>
+			</div>
+			<div class="modal-body">
+				<div id="sourceip">
+					<div class="form-group">
+						<label for="sourceip">Nguồn dữ liệu:</label> <input type="text"
+							class="form-control" filter="sourceip">
+					</div>
+					<div class='result-type'></div>
+				</div>
+				<hr>
+				<div id="srcport">
+					<div class="form-group">
+						<label for="sourceip">Cổng nguồn:</label> <input type="text"
+							class="form-control" filter="srcport">
+					</div>
+					<div class='result-type'></div>
+				</div>
+				<hr>
+				<div id="dstport">
+					<div class="form-group">
+						<label for="sourceip">Cổng đích:</label> <input type="text"
+							class="form-control" filter="dstport">
+					</div>
+					<div class='result-type'></div>
+				</div>
+				<hr>
+				<div id="protocol">
+					<div class="form-group">
+						<label for="protocol">Giao thức:</label>
+						<div class="btn-group">
+							<button active="false" class="btn btn-default btn-filterchoose" filter="protocol" value-filter="TCB">TCB</button>
+							<button active="false" class="btn btn-default btn-filterchoose" filter="protocol" value-filter="UDB">UDB</button>
+							<button active="false" class="btn btn-default btn-filterchoose" filter="protocol" value-filter="ICMP">ICMP</button>
+						</div>
+						
+						<button class="btn btn-primary btn-filterchoose" filter="protocol" value-filter="all">Tất cả</button>
+					</div>
+					<div class='result-type'></div>
+				</div>
+				<hr>
+				<div id="action">
+					<div class="form-group">
+						<label for="action">Hành động:</label>
+						<div class="btn-group">
+							<button active="false" class="btn btn-default btn-filterchoose" filter="action" value-filter="ALLOW">ALLOW</button>
+							<button active="false" class="btn btn-default btn-filterchoose" filter="action" value-filter="DROP">DROP</button>
+						</div>
+						
+						<button class="btn btn-primary btn-filterchoose" filter="action" value-filter="all">Tất cả</button>
+					</div>
+					<div class='result-type'></div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Áp
+					dụng</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+
+	</div>
+</div>
+

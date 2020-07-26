@@ -1,3 +1,9 @@
+var filterSourceIP = [];
+var filterProtocol = [];
+var filterAction = [];
+var filterSrcport = [];
+var filterDstport = [];
+
 $(document).ready(function(){
 	var dynamicMapUrl = url+"dynamicmap/";
 	var camservice = url+"camservice/";
