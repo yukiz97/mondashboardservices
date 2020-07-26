@@ -651,14 +651,14 @@ $(document).ready(function(){
 		
 		var formattedTime = year+"-"+month.substr(-2)+"-"+day.substr(-2)+" "+hours.substr(-2) + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
 
-		var rowString = "<div action='"+action+"' class='detailrow animated flipInX'>"+
+		var rowString = "<div class='detailrow animated flipInX'>"+
 		"<div class='source'>"+sourceIp+"</div>"+
 		"<div class='src'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+imgSource+".svg' title='"+sourceDisplay+"' /> "+sourceDisplay+" ("+ipSource+")</div>"+
 		"<div class='src_port'>"+srcport+"</div>"+
 		"<div class='dst'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+imgDes+".svg' title='"+desDisplay+"' /> "+desDisplay+" ("+ipDes+")</div>"+
 		"<div class='dst_port'>"+dstport+"</div>"+
 		"<div class='protocol'>"+protocol+"</div>"+
-		"<div class='action'>"+action+"</div>"+
+		"<div class='action'><span action='"+action+"'>"+action+"</span></div>"+
 		"<div class='date'>"+formattedTime+"</div>"+
 		"</div>";
 		return rowString;

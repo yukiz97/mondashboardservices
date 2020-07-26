@@ -170,13 +170,6 @@ circle {
 	font-weight: bold;
 }
 
-.detailrow[action='ALLOW'],.detailrow[action='pass']{
-	color:#25d825;
-}
-.detailrow[action='DROP'],.detailrow[action='block']{
-	color:#fb473a;
-}
-
 .detail-header .detailrow div, .detail-body .detailrow div {
 	display: inline-block;
 }
@@ -303,7 +296,7 @@ circle {
 	width: 7%;
 }
 
-#detail-c .priority span {
+#detail-a .action span, #detail-c .priority span {
 	display: inline-block;
     padding: 2px 0px;
     width: 80%;
@@ -312,6 +305,21 @@ circle {
     border-radius: 5px;
     box-shadow: 1px 1px 2px 2px #212121;
 }
+#detail-a .action span{
+	width: 60% !important;
+}
+#detail-a .action span[action='ALLOW'],#detail-a .action span[action='pass'] {
+	background: #25b325;
+}
+#detail-a .action span[action='DROP'],#detail-a .action span[action='block'] {
+	background: #c33835;
+}
+/* .detailrow[action='ALLOW'],.detailrow[action='pass']{
+	color:#25d825;
+}
+.detailrow[action='DROP'],.detailrow[action='block']{
+	color:#fb473a;
+} */
 #detail-c .priority span[priority='1'] {
 	background: #db7093;
 }
