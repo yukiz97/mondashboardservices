@@ -1,8 +1,10 @@
-var filterSourceIP = [];
 var filterProtocol = [];
 var filterAction = [];
 var filterSrcport = [];
 var filterDstport = [];
+var filterSigname = [];
+var filterClassification = [];
+var filterPriority = [];
 
 $(document).ready(function(){
 	var dynamicMapUrl = url+"dynamicmap/";

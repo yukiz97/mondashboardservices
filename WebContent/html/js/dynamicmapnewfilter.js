@@ -3,30 +3,35 @@ $(document).ready(function(){
 	  if (e.which == 13) {
 			var value = $(this).val();
 			switch ($(this).attr("filter")) {
-				case "sourceip":
-					addToArrayFilterType("sourceip",value,filterSourceIP);
-				break;
 				case "srcport":
 					addToArrayFilterType("srcport",value,filterSrcport);
 				break;
 				case "dstport":
 					addToArrayFilterType("dstport",value,filterDstport);
 				break;
+				case "signame":
+					addToArrayFilterType("signame",value,filterSigname);
+				break;
+				case "classification":
+					addToArrayFilterType("classification",value,filterClassification);
+				break;
 			}
 	  }
 	});
 	
 	$("#modal-filter").on("click",".filter-type-display button",function(){
-		console.log(":he");
 		switch ($(this).attr("filter")) {
-				case "sourceip":
-					filterSourceIP.splice(filterSourceIP.indexOf($(this).attr("filter-value")), 1);
-				break;
 				case "srcport":
 					filterSrcport.splice(filterSrcport.indexOf($(this).attr("filter-value")), 1);
 				break;
 				case "dstport":
 					filterDstport.splice(filterDstport.indexOf($(this).attr("filter-value")), 1);
+				break;
+				case "signame":
+					filterSigname.splice(filterSigname.indexOf($(this).attr("filter-value")), 1);
+				break;
+				case "classification":
+					filterClassification.splice(filterClassification.indexOf($(this).attr("filter-value")), 1);
 				break;
 			}
 		$(this).closest(".filter-type-display").remove();
@@ -44,6 +49,9 @@ $(document).ready(function(){
 				break;
 				case "action":
 					filterAction = [];
+				break;
+				case "priority":
+					filterPriority = [];
 				break;
 			}
 			$(this).attr("class","btn btn-primary btn-filterchoose");
@@ -65,6 +73,13 @@ $(document).ready(function(){
 					filterAction.splice(filterAction.indexOf(value), 1);
 				} else {
 					filterAction.push(value);
+				}
+				break;
+				case "priority":
+				if(active=="true"){
+					filterPriority.splice(filterPriority.indexOf(value), 1);
+				} else {
+					filterPriority.push(value);
 				}
 				break;
 			}

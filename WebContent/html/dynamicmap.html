@@ -120,14 +120,6 @@
 				<h4 class="modal-title">Bộ lọc nâng cao</h4>
 			</div>
 			<div class="modal-body">
-				<div id="sourceip">
-					<div class="form-group">
-						<label for="sourceip">Nguồn dữ liệu:</label> <input type="text"
-							class="form-control" filter="sourceip">
-					</div>
-					<div class='result-type'></div>
-				</div>
-				<hr>
 				<div id="srcport">
 					<div class="form-group">
 						<label for="sourceip">Cổng nguồn:</label> <input type="text"
@@ -148,12 +140,16 @@
 					<div class="form-group">
 						<label for="protocol">Giao thức:</label>
 						<div class="btn-group">
-							<button active="false" class="btn btn-default btn-filterchoose" filter="protocol" value-filter="TCB">TCB</button>
-							<button active="false" class="btn btn-default btn-filterchoose" filter="protocol" value-filter="UDB">UDB</button>
-							<button active="false" class="btn btn-default btn-filterchoose" filter="protocol" value-filter="ICMP">ICMP</button>
+							<button active="false" class="btn btn-default btn-filterchoose"
+								filter="protocol" value-filter="TCB">TCB</button>
+							<button active="false" class="btn btn-default btn-filterchoose"
+								filter="protocol" value-filter="UDB">UDB</button>
+							<button active="false" class="btn btn-default btn-filterchoose"
+								filter="protocol" value-filter="ICMP">ICMP</button>
 						</div>
-						
-						<button class="btn btn-primary btn-filterchoose" filter="protocol" value-filter="all">Tất cả</button>
+
+						<button class="btn btn-primary btn-filterchoose" filter="protocol"
+							value-filter="all">Tất cả</button>
 					</div>
 					<div class='result-type'></div>
 				</div>
@@ -162,11 +158,47 @@
 					<div class="form-group">
 						<label for="action">Hành động:</label>
 						<div class="btn-group">
-							<button active="false" class="btn btn-default btn-filterchoose" filter="action" value-filter="ALLOW">ALLOW</button>
-							<button active="false" class="btn btn-default btn-filterchoose" filter="action" value-filter="DROP">DROP</button>
+							<button active="false" class="btn btn-default btn-filterchoose"
+								filter="action" value-filter="ALLOW">ALLOW</button>
+							<button active="false" class="btn btn-default btn-filterchoose"
+								filter="action" value-filter="DROP">DROP</button>
 						</div>
-						
-						<button class="btn btn-primary btn-filterchoose" filter="action" value-filter="all">Tất cả</button>
+
+						<button class="btn btn-primary btn-filterchoose" filter="action"
+							value-filter="all">Tất cả</button>
+					</div>
+					<div class='result-type'></div>
+				</div>
+				<div id="action">
+					<div class="form-group">
+						<label for="priority">Mức độ:</label>
+						<div class="btn-group">
+							<button active="false" class="btn btn-default btn-filterchoose"
+								filter="priority" value-filter="1">HIGH</button>
+							<button active="false" class="btn btn-default btn-filterchoose"
+								filter="priority" value-filter="2">MEDIUM</button>
+								<button active="false" class="btn btn-default btn-filterchoose"
+								filter="priority" value-filter="3">LOW</button>
+						</div>
+
+						<button class="btn btn-primary btn-filterchoose" filter="priority"
+							value-filter="all">Tất cả</button>
+					</div>
+					<div class='result-type'></div>
+				</div>
+				<hr>
+				<div id="signame">
+					<div class="form-group">
+						<label for="signame">Mẫu nhận dạng tấn công:</label> <input type="text"
+							class="form-control" filter="signame">
+					</div>
+					<div class='result-type'></div>
+				</div>
+				<hr>
+				<div id="classification">
+					<div class="form-group">
+						<label for="classification">Phân loại:</label> <input type="text"
+							class="form-control" filter="classification">
 					</div>
 					<div class='result-type'></div>
 				</div>
