@@ -5,6 +5,10 @@ var filterDstport = [];
 var filterSigname = [];
 var filterClassification = [];
 var filterPriority = [];
+var filterLocation = [];
+
+var strListItemMapLeft = "";
+var strListItemMapRight = "";
 
 $(document).ready(function(){
 	var dynamicMapUrl = url+"dynamicmap/";
@@ -53,11 +57,15 @@ $(document).ready(function(){
 	{
 		$("#type-map-name").html("BẢN ĐỒ KIỂM SOÁT KẾT NỐI MẠNG")
 		$("#detail-a").css("display","inline-block");
+		$("#priority").hide();
+		$("#signame").hide();
+		$("#classification").hide();
 	}
 	else if(typeData=="snort")
 	{
 		$("#type-map-name").html("BẢN ĐỒ THEO DÕI DẤU HIỆU TẤN CÔNG MẠNG")
 		$("#detail-c").css("display","inline-block");
+		$("#action").hide();
 	}
 	
 	loadValueForForm();
@@ -84,6 +92,14 @@ $(document).ready(function(){
 		}, 20000);
 	});
 	
+	$("#apply-filter-replay").on("click",function(){
+		$("#btn-replay").trigger("click");
+	});
+	
+	$("#apply-filter-realtime").on("click",function(){
+		$("#btn-realtime").trigger("click");
+	});
+	
 	function getDynamicMap()
 	{
 		var rqUrl = dynamicMapUrl+"getdynamicmap?idMapLeft="+leftId+"&idMapRight="+rightId;
@@ -104,10 +120,16 @@ $(document).ready(function(){
 				var circleString = "";
 				mapLeft.items.forEach(function(item){
 					circleString += "<circle code='"+item.code+"' name='"+item.name+"' fill='#ED1C24' cx='"+item.x+"' cy='"+item.y+"' submap='"+item.mapLevel2Id+"' side='left' r='1'/>";
+					strListItemMapLeft += "<option value='"+item.code+"'>"+item.name+"</option>";
 				});
 				mapRight.items.forEach(function(item){
 					circleString += "<circle code='"+item.code+"' name='"+item.name+"' fill='#ED1C24' cx='"+(item.x+950)+"' cy='"+item.y+"' submap='"+item.mapLevel2Id+"' side='right' r='1'/>";
+					strListItemMapRight += "<option value='"+item.code+"'>"+item.name+"</option>";
 				});
+				
+				$("#filter-location div[combobox='left'] select").append("<optgroup label='"+mapLeft.mapName+"'>"+strListItemMapLeft+"<optgroup><optgroup label='"+mapRight.mapName+"'>"+strListItemMapRight+"<optgroup>");
+				$("#filter-location div[combobox='right'] select").append("<optgroup label='"+mapRight.mapName+"'>"+strListItemMapRight+"<optgroup><optgroup label='"+mapLeft.mapName+"'>"+strListItemMapLeft+"<optgroup>");
+				
 				$("#svg-container").append(svgTag+gradientAllow+gradientDeny+gradientOther+gradientHigh+gradientMedium+gradientLow+circleString+"</svg>");
 			
 				leftCode = mapLeft.code;
@@ -188,10 +210,27 @@ $(document).ready(function(){
 					
 					var countItem = 0;
 					data.forEach(function(item){
-						arrayData.push(item.from+"-"+item.to);
+						var idItem = item.from+"-"+item.to;
+						var srcport = item.src_port;
+						var dstport = item.dst_port;
+						var protocol = item.protocol;
+						var action = item.action;
+						
+						if(filterLocation.length > 0 && !filterLocation.includes(idItem))
+							return;
+						if(filterSrcport.length > 0 && !filterSrcport.includes(srcport))
+							return;
+						if(filterDstport.length > 0 && !filterDstport.includes(dstport))
+							return;
+						if(filterProtocol.length > 0 && !filterProtocol.includes(protocol))
+							return;
+						if(filterAction.length > 0 && !filterAction.includes(action))
+							return;
+							
+						arrayData.push(idItem);
 						appendDisplay(item.from,item.to,item.action);
 						
-						var detail = createDetailRow(item.from,item.fromName,item.src_ip,item.to,item.toName,item.dst_ip,item.action,item.date,item.src_port,item.dst_port,item.protocol,item.sourceip);
+						var detail = createDetailRow(item.from,item.fromName,item.src_ip,item.to,item.toName,item.dst_ip,action,item.date,srcport,dstport,protocol,item.sourceip);
 						if(detail!="")
 						{
 							arrayDetailA[countItem++] = detail;
@@ -214,17 +253,41 @@ $(document).ready(function(){
 					arrayDetailC = [];
 					
 					var countItem = 0;
+					console.log(filterClassification);
 					data.forEach(function(item){
 				  		if(item.id !== "VN_VN")
 			  			{
-				  			var detail = createDetailRowSnort(item.src_ip,item.fromname,item.from,item.dst_ip,item.toname,item.to,item.sig_name,item.src_port,item.dst_port,item.date,item.classification,item.protocol,item.priority);
+							var idItem = item.from+"-"+item.to;
+							var srcport = item.src_port;
+							var dstport = item.dst_port;
+							var protocol = item.protocol;
+							var priority = item.priority;
+							var signame = item.sig_name;
+							var classification = item.classification;
+							
+							if(filterLocation.length > 0 && !filterLocation.includes(idItem))
+								return;
+							if(filterSrcport.length > 0 && !filterSrcport.includes(srcport))
+								return;
+							if(filterDstport.length > 0 && !filterDstport.includes(dstport))
+								return;
+							if(filterProtocol.length > 0 && !filterProtocol.includes(protocol))
+								return;
+							if(filterPriority.length > 0 && !filterPriority.includes(priority))
+								return;
+							if(filterSigname.length > 0 && !filterSigname.includes(signame))
+								return;
+							if(filterClassification.length > 0 && !filterClassification.includes(classification))
+								return;
+							
+				  			var detail = createDetailRowSnort(item.src_ip,item.fromname,item.from,item.dst_ip,item.toname,item.to,signame,item.src_port,item.dst_port,item.date,classification,protocol,priority);
 							if(detail!="")
 							{
 								arrayDetailC[countItem++] = detail;
 							}
-							arrayData.push(item.from+"-"+item.to);
+							arrayData.push(idItem);
 							
-							appendDisplay(item.from,item.to,(item.priority == 1 ? "HIGH" : item.priority == 2 ? "MEDIUM" : "LOW"));
+							appendDisplay(item.from,item.to,(priority == 1 ? "HIGH" : priority == 2 ? "MEDIUM" : "LOW"));
 			  			}
 					});
 					console.log(arrayData);

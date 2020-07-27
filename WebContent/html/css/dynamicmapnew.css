@@ -442,9 +442,27 @@ button:focus {
 	
 }
 
-.filter-type-display button {
+.filter-type-display button, .location-filter-result button{
 	background: none;
 	border: none;
 	color: #ababab;
 	font-weight: 100;
+}
+
+#filter-location .row{
+	margin-right:0 !important;
+}
+#filter-location #add-left-to-right{
+	margin-top:21px;
+}
+.select2-dropdown{
+	color: black;
+}
+.location-filter-result{
+	padding-left: 15px;
+    margin: auto !important;
+	
+}
+.location-filter-result span{
+	font-weight: bold;
 }

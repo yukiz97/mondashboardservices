@@ -4,18 +4,35 @@ $(document).ready(function(){
 			var value = $(this).val();
 			switch ($(this).attr("filter")) {
 				case "srcport":
-					addToArrayFilterType("srcport",value,filterSrcport);
+					if((!isNaN(parseInt(value)) || value=="-") && value != ""){
+						addToArrayFilterType("srcport",parseInt(value),filterSrcport);
+					} else {
+						swal("Không thành công!", "Giá trị phải là số nguyên hoặc -", "error");
+					}
 				break;
 				case "dstport":
-					addToArrayFilterType("dstport",value,filterDstport);
+					if((!isNaN(parseInt(value)) || value=="-") && value != ""){
+						addToArrayFilterType("dstport",value,filterDstport);
+					} else {
+						swal("Không thành công!", "Giá trị phải là số nguyên hoặc -", "error");
+					}
 				break;
 				case "signame":
-					addToArrayFilterType("signame",value,filterSigname);
+					if(value != ""){
+						addToArrayFilterType("signame",value,filterSigname);
+					} else {
+						swal("Không thành công!", "Giá trị không được để trống", "error");
+					}
 				break;
 				case "classification":
-					addToArrayFilterType("classification",value,filterClassification);
+					if(value != ""){
+						addToArrayFilterType("classification",value,filterClassification);
+					} else {
+						swal("Không thành công!", "Giá trị không được để trống", "error");
+					}
 				break;
 			}
+			$(this).val("");
 	  }
 	});
 	
@@ -95,10 +112,46 @@ $(document).ready(function(){
 				$(this).addClass("btn-info");
 			}	
 		}	
-		console.log(filterProtocol);
 	});
-	
+	$("#filter-location div[combobox='left'] select").select2({
+		width: '100%'
+	});
+	$("#filter-location div[combobox='right'] select").select2({
+		width: '100%'
+	});
+	$("#add-left-to-right").on("click",function(){
+		var valueFrom = $("#filter-location div[combobox='left'] select option:selected").val();
+		var captionFrom = $("#filter-location div[combobox='left'] select option:selected").text();
+		
+		var valueTo = $("#filter-location div[combobox='right'] select option:selected").val();
+		var captionTo= $("#filter-location div[combobox='right'] select option:selected").text();
+		var valueFilter = valueFrom+"-"+valueTo
+		var strDisplay = "<div class='row location-filter-result'>"
+			+"<hr>"
+			+"<div class='col-md-5'><span>"+captionFrom+"</span></div>"
+			+"<div class='col-md-1'>"
+				+"<i class='fa fa-arrow-right'></i>"
+			+"</div>"
+			+"<div class='col-md-5'><span>"+captionTo+"</span></div>"
+			+"<div class='col-md-1'>"
+				+"<button value-filter='"+valueFilter+"'>"
+					+"<i class='fa fa-remove'></i>"
+				+"</button>"
+			+"</div>"
+		+"</div>";
+		filterLocation.push(valueFilter);
+		$("#filter-location").append(strDisplay);
+	});
+	$("body").on("click",".location-filter-result button",function(){
+		$(this).closest(".location-filter-result").remove();
+		filterLocation.splice(filterLocation.indexOf($(this).attr("value-filter")), 1);
+	});
+
 	function addToArrayFilterType(id,value,array){
+		if(array.includes(value)){
+			swal("Không thành công!", "Giá trị đã tồn tại trong bộ lọc!", "error");
+			return;
+		}
 		array.push(value);
 		var displayBlock = "<div class='filter-type-display'><span>"+value+"</span><button filter='"+id+"' filter-value='"+value+"'><i class='fa fa-remove'></i></button></div>"
 		$("#"+id+" .result-type").prepend(displayBlock);
