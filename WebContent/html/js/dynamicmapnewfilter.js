@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function(){	
 	$('input').keypress(function search(e) {
 	  if (e.which == 13) {
 			var value = $(this).val();
@@ -15,20 +15,6 @@ $(document).ready(function(){
 						addToArrayFilterType("dstport",value,filterDstport);
 					} else {
 						swal("Không thành công!", "Giá trị phải là số nguyên hoặc -", "error");
-					}
-				break;
-				case "signame":
-					if(value != ""){
-						addToArrayFilterType("signame",value,filterSigname);
-					} else {
-						swal("Không thành công!", "Giá trị không được để trống", "error");
-					}
-				break;
-				case "classification":
-					if(value != ""){
-						addToArrayFilterType("classification",value,filterClassification);
-					} else {
-						swal("Không thành công!", "Giá trị không được để trống", "error");
 					}
 				break;
 			}
@@ -113,6 +99,12 @@ $(document).ready(function(){
 			}	
 		}	
 	});
+	$("#signame select").select2({
+		width: '100%'
+	});
+	$("#classification select").select2({
+		width: '100%'
+	});
 	$("#filter-location div[combobox='left'] select").select2({
 		width: '100%'
 	});
@@ -142,6 +134,17 @@ $(document).ready(function(){
 		filterLocation.push(valueFilter);
 		$("#filter-location").append(strDisplay);
 	});
+	$("#add-signame").on("click",function(){
+		var value = $("#signame select option:selected").val();
+		
+		addToArrayFilterType("signame",value,filterSigname);
+	});
+	$("#add-classification").on("click",function(){
+		var value = $("#classification select option:selected").val();
+		
+		addToArrayFilterType("classification",value,filterClassification);
+	});
+	
 	$("body").on("click",".location-filter-result button",function(){
 		$(this).closest(".location-filter-result").remove();
 		filterLocation.splice(filterLocation.indexOf($(this).attr("value-filter")), 1);

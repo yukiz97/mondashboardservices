@@ -438,10 +438,6 @@ button:focus {
 	border-radius: 5px;
 }
 
-.filter-type-display span {
-	
-}
-
 .filter-type-display button, .location-filter-result button{
 	background: none;
 	border: none;
@@ -449,10 +445,10 @@ button:focus {
 	font-weight: 100;
 }
 
-#filter-location .row{
+#filter-location .row,#signame .row,#classification .row{
 	margin-right:0 !important;
 }
-#filter-location #add-left-to-right{
+#filter-location #add-left-to-right,#signame #add-signame,#classification #add-classification{
 	margin-top:21px;
 }
 .select2-dropdown{

@@ -14,6 +14,7 @@ import monservice.models.DynamicMapBean;
 import monservice.models.DynamicMapBlock;
 import monservice.models.RangeIPModel;
 import monservice.utils.DynamicMapServiceUtils;
+import monservice.utils.SnortMongoDBServiceUtils;
 
 @Path("/dynamicmap")
 public class DynamicMapServices {		
@@ -33,6 +34,26 @@ public class DynamicMapServices {
 		return Response.status(201)
 				.header("Access-Control-Allow-Origin", "*")
 			    .entity(modelMap)
+			    .build();
+	}
+	
+	@Path("/getsignamelist")
+	@GET
+	@Produces({MediaType.APPLICATION_JSON })
+	public Response getSignatureNameList() {
+		return Response.status(201)
+				.header("Access-Control-Allow-Origin", "*")
+			    .entity(SnortMongoDBServiceUtils.getDistinctSigName())
+			    .build();
+	}
+	
+	@Path("/getclassificationlist")
+	@GET
+	@Produces({MediaType.APPLICATION_JSON })
+	public Response getClassificationList() {
+		return Response.status(201)
+				.header("Access-Control-Allow-Origin", "*")
+			    .entity(SnortMongoDBServiceUtils.getDistinctClassification())
 			    .build();
 	}
 }

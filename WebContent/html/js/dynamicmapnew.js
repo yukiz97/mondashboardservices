@@ -10,10 +10,10 @@ var filterLocation = [];
 var strListItemMapLeft = "";
 var strListItemMapRight = "";
 
+var dynamicMapUrl = url+"dynamicmap/";
+var camservice = url+"camservice/";
+
 $(document).ready(function(){
-	var dynamicMapUrl = url+"dynamicmap/";
-	var camservice = url+"camservice/";
-	
 	var params = new window.URLSearchParams(window.location.search);
 	var typeData;
 	
@@ -66,6 +66,9 @@ $(document).ready(function(){
 		$("#type-map-name").html("BẢN ĐỒ THEO DÕI DẤU HIỆU TẤN CÔNG MẠNG")
 		$("#detail-c").css("display","inline-block");
 		$("#action").hide();
+		
+		getSigNameList();
+		getClassificationList();
 	}
 	
 	loadValueForForm();
@@ -99,6 +102,45 @@ $(document).ready(function(){
 	$("#apply-filter-realtime").on("click",function(){
 		$("#btn-realtime").trigger("click");
 	});
+	
+	function getSigNameList(){
+		var rqUrl = dynamicMapUrl+"getsignamelist";
+		$.ajax({
+			url: rqUrl,
+			type: 'GET',
+			crossDomain: true,
+			dataType: 'json',
+			success: function(data){
+				var strSig = "";
+				for(i = 0 ; i < data.length ; i++){
+					strSig += "<option value='"+data[i]+"'>"+data[i]+"</option>";
+				}
+				$("#signame select").append("<optgroup label='Mẫu nhận dạng tấn công'>"+strSig+"</optgroup>");
+			},
+			error: function(){
+				console.log("get sig name list fail!!!!!");
+			}
+		});
+	}
+	function getClassificationList(){
+		var rqUrl = dynamicMapUrl+"getclassificationlist";
+		$.ajax({
+			url: rqUrl,
+			type: 'GET',
+			crossDomain: true,
+			dataType: 'json',
+			success: function(data){
+				var strSig = "";
+				for(i = 0 ; i < data.length ; i++){
+					strSig += "<option value='"+data[i]+"'>"+data[i]+"</option>";
+				}
+				$("#classification select").append("<optgroup label='Phân loại'>"+strSig+"</optgroup>");
+			},
+			error: function(){
+				console.log("get sig name list fail!!!!!");
+			}
+		});
+	}
 	
 	function getDynamicMap()
 	{
