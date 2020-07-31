@@ -110,7 +110,7 @@ $(document).ready(function(){
 				}).on("mouseout",function(){
 					var ip = $(this).attr("ip");
 
-					$(".ipvalue[ip='"+ip+"']").css({"color":"#181642","font-weight":"normal"})
+					$(".ipvalue[ip='"+ip+"']").css({"color":"#999999","font-weight":"normal"})
 
 				});
 
