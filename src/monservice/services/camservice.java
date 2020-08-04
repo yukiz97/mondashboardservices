@@ -131,6 +131,7 @@ public class camservice {
 				BanCheoCheoModel model=new BanCheoCheoModel();
 				model.setSrc_port(document.getString("src_port"));
 				model.setSrc_ip(srcIp);
+				model.setFromName(modelSrc.getValue());
 				model.setSig_rev(document.getString("sig_rev"));
 				model.setSig_name(document.getString("sig_name"));
 				model.setSig_id(document.getString("sig_id"));
@@ -139,6 +140,7 @@ public class camservice {
 				model.setGen_id(document.getString("gen_id"));
 				model.setDst_port(document.getString("dst_port"));
 				model.setDst_ip(dstIp);
+				model.setToName(modelDst.getValue());
 				model.setClassification(document.getString("classification"));
 				model.setSOURCEIP(document.getString("SOURCEIP"));
 				model.setDATE(document.getDate("DATE"));

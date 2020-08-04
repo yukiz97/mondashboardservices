@@ -322,7 +322,7 @@ $(document).ready(function(){
 							if(filterClassification.length > 0 && !filterClassification.includes(classification))
 								return;
 							
-				  			var detail = createDetailRowSnort(item.src_ip,item.fromname,item.from,item.dst_ip,item.toname,item.to,signame,item.src_port,item.dst_port,item.date,classification,protocol,priority);
+				  			var detail = createDetailRowSnort(item.src_ip,item.fromName,item.from,item.dst_ip,item.toName,item.to,signame,item.src_port,item.dst_port,item.date,classification,protocol,priority);
 							if(detail!="")
 							{
 								arrayDetailC[countItem++] = detail;
@@ -804,9 +804,9 @@ $(document).ready(function(){
 		var formattedTime = year+"-"+month.substr(-2)+"-"+day.substr(-2)+" "+hours.substr(-2) + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
 
 		var rowString = "<div class='detailrow animated flipInX'>"+
-		"<div class='src'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+flagSource+".svg' title='"+sourceIp+"' /> "+sourceIp+"</div>"+
+		"<div class='src'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+flagSource+".svg' title='"+sourceIp+"' /> "+sourceName+" ("+sourceIp+")</div>"+
 		"<div class='srcport'>"+sourcePort+"</div>"+
-		"<div class='dst'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+flagDes+".svg' title='"+desIp+"' /> "+desIp+"</div>"+
+		"<div class='dst'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+flagDes+".svg' title='"+desIp+"' /> "+desName+" ("+desIp+")</div>"+
 		"<div class='dstport'>"+desPort+"</div>"+
 		"<div class='protocol'>"+protocol+"</div>"+
 		"<div class='priority'><span priority='"+priority+"'>"+(priority == 1 ? "HIGH" : priority == 2 ? "MEDIUM" : "LOW")+"</span></div>"+
