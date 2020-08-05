@@ -118,9 +118,17 @@ $(document).ready(function(){
 		var valueTo = $("#filter-location div[combobox='right'] select option:selected").val();
 		var captionTo= $("#filter-location div[combobox='right'] select option:selected").text();
 		var valueFilter = valueFrom+"-"+valueTo;
-		if(filterLocation.includes(valueFilter)){
+		
+		if(valueFrom=="all" && valueTo=="all"){
+			return;	
+		}else if(filterLocation.includes(valueFilter)){
 			swal("Không thành công!", "Giá trị đã tồn tại trong bộ lọc!", "error");
 			return;
+		}
+		if(valueFrom=="all"){
+			filterLocationDesAll.push(valueTo);
+		} else if(valueTo=="all"){
+			filterLocationSrcAll.push(valueFrom);
 		}
 		var strDisplay = "<div class='row location-filter-result'>"
 			+"<hr>"
@@ -130,7 +138,7 @@ $(document).ready(function(){
 			+"</div>"
 			+"<div class='col-md-5'><span>"+captionTo+"</span></div>"
 			+"<div class='col-md-1'>"
-				+"<button value-filter='"+valueFilter+"'>"
+				+"<button from='"+valueFrom+"' to='"+valueTo+"' value-filter='"+valueFilter+"'>"
 					+"<i class='fa fa-remove'></i>"
 				+"</button>"
 			+"</div>"
@@ -150,8 +158,17 @@ $(document).ready(function(){
 	});
 	
 	$("body").on("click",".location-filter-result button",function(){
+		var from = $(this).attr("from");
+		var to = $(this).attr("to");
+		
+		if(from=="all"){
+			filterLocationDesAll.splice(filterLocationDesAll.indexOf(to), 1);
+		} else if(to=="all"){
+			filterLocationSrcAll.splice(filterLocationSrcAll.indexOf(to), 1);
+		}
+
 		$(this).closest(".location-filter-result").remove();
-		filterLocation.splice(filterLocation.indexOf($(this).attr("value-filter")), 1);
+		filterLocation.splice(filterLocation.indexOf($(this).attr("value-filter")), 1);	
 	});
 	
 	$("body").on("click",".filter-row",function(){

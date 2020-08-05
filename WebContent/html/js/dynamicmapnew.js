@@ -6,6 +6,8 @@ var filterSigname = [];
 var filterClassification = [];
 var filterPriority = [];
 var filterLocation = [];
+var filterLocationSrcAll = [];
+var filterLocationDesAll = [];
 
 var strListItemMapLeft = "";
 var strListItemMapRight = "";
@@ -169,8 +171,8 @@ $(document).ready(function(){
 					strListItemMapRight += "<option value='"+item.code+"'>"+item.name+"</option>";
 				});
 				
-				$("#filter-location div[combobox='left'] select").append("<optgroup label='"+mapLeft.mapName+"'>"+strListItemMapLeft+"<optgroup><optgroup label='"+mapRight.mapName+"'>"+strListItemMapRight+"<optgroup>");
-				$("#filter-location div[combobox='right'] select").append("<optgroup label='"+mapRight.mapName+"'>"+strListItemMapRight+"<optgroup><optgroup label='"+mapLeft.mapName+"'>"+strListItemMapLeft+"<optgroup>");
+				$("#filter-location div[combobox='left'] select").append("<option value='all'>Tất cả</option><optgroup label='"+mapLeft.mapName+"'>"+strListItemMapLeft+"<optgroup><optgroup label='"+mapRight.mapName+"'>"+strListItemMapRight+"<optgroup>");
+				$("#filter-location div[combobox='right'] select").append("<option value='all'>Tất cả</option><optgroup label='"+mapRight.mapName+"'>"+strListItemMapRight+"<optgroup><optgroup label='"+mapLeft.mapName+"'>"+strListItemMapLeft+"<optgroup>");
 				
 				$("#svg-container").append(svgTag+gradientAllow+gradientDeny+gradientOther+gradientHigh+gradientMedium+gradientLow+circleString+"</svg>");
 			
@@ -244,6 +246,8 @@ $(document).ready(function(){
 			crossDomain: true,
 			dataType: 'json',
 			success: function(data){
+				console.log(filterLocationSrcAll);
+				console.log(filterLocationDesAll);
 				if(typeData=="connectivity")
 				{
 					clearInterval(intervalDetailA);
@@ -257,8 +261,11 @@ $(document).ready(function(){
 						var dstport = item.dst_port;
 						var protocol = item.protocol;
 						var action = item.action;
-						
-						if(filterLocation.length > 0 && !filterLocation.includes(idItem))
+						if(filterLocationSrcAll.length > 0 && filterLocationSrcAll.includes(item.from)){
+							
+						} else if(filterLocationDesAll.length > 0 && filterLocationDesAll.includes(item.to)){
+							
+						} else if(filterLocation.length > 0 && !filterLocation.includes(idItem))
 							return;
 						if(filterSrcport.length > 0 && !filterSrcport.includes(srcport))
 							return;
@@ -307,7 +314,11 @@ $(document).ready(function(){
 							var signame = item.sig_name;
 							var classification = item.classification;
 							
-							if(filterLocation.length > 0 && !filterLocation.includes(idItem))
+							if(filterLocationSrcAll.length > 0 && filterLocationSrcAll.includes(item.from)){
+								
+							} else if(filterLocationDesAll.length > 0 && filterLocationDesAll.includes(item.to)){
+								
+							} else if(filterLocation.length > 0 && !filterLocation.includes(idItem))
 								return;
 							if(filterSrcport.length > 0 && !filterSrcport.includes(srcport))
 								return;
