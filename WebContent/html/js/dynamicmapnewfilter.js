@@ -117,7 +117,11 @@ $(document).ready(function(){
 		
 		var valueTo = $("#filter-location div[combobox='right'] select option:selected").val();
 		var captionTo= $("#filter-location div[combobox='right'] select option:selected").text();
-		var valueFilter = valueFrom+"-"+valueTo
+		var valueFilter = valueFrom+"-"+valueTo;
+		if(filterLocation.includes(valueFilter)){
+			swal("Không thành công!", "Giá trị đã tồn tại trong bộ lọc!", "error");
+			return;
+		}
 		var strDisplay = "<div class='row location-filter-result'>"
 			+"<hr>"
 			+"<div class='col-md-5'><span>"+captionFrom+"</span></div>"
@@ -132,7 +136,7 @@ $(document).ready(function(){
 			+"</div>"
 		+"</div>";
 		filterLocation.push(valueFilter);
-		$("#filter-location").append(strDisplay);
+		$("#filter-location .result").append(strDisplay);
 	});
 	$("#add-signame").on("click",function(){
 		var value = $("#signame select option:selected").val();
@@ -148,6 +152,45 @@ $(document).ready(function(){
 	$("body").on("click",".location-filter-result button",function(){
 		$(this).closest(".location-filter-result").remove();
 		filterLocation.splice(filterLocation.indexOf($(this).attr("value-filter")), 1);
+	});
+	
+	$("body").on("click",".filter-row",function(){
+		var filterId = $(this).attr("filter-id");
+		var value = $(this).attr("value-filter");
+		switch (filterId) {
+			case 'srcport':
+				addToArrayFilterType(filterId,value,filterSrcport);
+			break;
+			case 'dstport':
+				addToArrayFilterType(filterId,value,filterDstport);
+			break;
+			case 'signame':
+				addToArrayFilterType(filterId,value,filterSigname);
+			break;
+			case 'classification':
+				addToArrayFilterType(filterId,value,filterClassification);
+			break;
+			case 'filter-location':
+				var srcId = $(this).attr("idsrc");
+				var desId = $(this).attr("iddes");
+				
+				$("#filter-location div[combobox='left'] select").val(srcId);
+				$("#filter-location div[combobox='right'] select").val(desId);
+				
+				$("#add-left-to-right").trigger("click");
+			break;
+			case 'protocol':
+			case 'action':
+			case 'priority':
+				$(".btn-filterchoose[filter='"+filterId+"'][value-filter='"+value+"']").trigger("click");
+			break;
+		}
+		
+		if(realtime){
+			$("#btn-realtime").trigger("click");
+		} else {
+			$("#btn-replay").trigger("click");
+		}
 	});
 
 	function addToArrayFilterType(id,value,array){

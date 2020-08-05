@@ -12,6 +12,7 @@ var strListItemMapRight = "";
 
 var dynamicMapUrl = url+"dynamicmap/";
 var camservice = url+"camservice/";
+var realtime = false;
 
 $(document).ready(function(){
 	var params = new window.URLSearchParams(window.location.search);
@@ -40,7 +41,6 @@ $(document).ready(function(){
 	var indexDetailC = 0;
 	var intervalDetailC;
 
-	var realtime = false;
 	var myInterval;
 	
 	if(!params.has('left') || !params.has('right') || !params.has("type"))
@@ -286,7 +286,7 @@ $(document).ready(function(){
 
 					intervalDetailA = setInterval(function() {
 						displayToScreenDetailA();
-					}, 600000);
+					}, 5000);
 				} 
 				else
 				{
@@ -767,12 +767,12 @@ $(document).ready(function(){
 
 		var rowString = "<div class='detailrow animated flipInX'>"+
 		"<div class='source'>"+sourceIp+"</div>"+
-		"<div class='src'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+imgSource+".svg' title='"+sourceDisplay+"' /> "+sourceDisplay+" ("+ipSource+")</div>"+
-		"<div class='src_port'>"+srcport+"</div>"+
-		"<div class='dst'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+imgDes+".svg' title='"+desDisplay+"' /> "+desDisplay+" ("+ipDes+")</div>"+
-		"<div class='dst_port'>"+dstport+"</div>"+
-		"<div class='protocol'>"+protocol+"</div>"+
-		"<div class='action'><span action='"+action+"'>"+action+"</span></div>"+
+		"<div class='src'><span class='filter-row' filter-id='filter-location' idsrc='"+idSource+"' iddes='"+idDes+"'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+imgSource+".svg' title='"+sourceDisplay+"' /> "+sourceDisplay+" ("+ipSource+")</span></div>"+
+		"<div class='src_port'><span class='filter-row' filter-id='srcport' value-filter='"+srcport+"'>"+srcport+"</span></div>"+
+		"<div class='dst'><span class='filter-row' filter-id='filter-location' idsrc='"+idSource+"' iddes='"+idDes+"'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+imgDes+".svg' title='"+desDisplay+"' /> "+desDisplay+" ("+ipDes+")</span></div>"+
+		"<div class='dst_port'><span class='filter-row' filter-id='dstport' value-filter='"+dstport+"'>"+dstport+"</span></div>"+
+		"<div class='protocol'><span class='filter-row' filter-id='protocol' value-filter='"+protocol+"'>"+protocol+"</span></div>"+
+		"<div class='action'><span class='filter-row' filter-id='action' value-filter='"+action+"' action='"+action+"'>"+action+"</span></div>"+
 		"<div class='date'>"+formattedTime+"</div>"+
 		"</div>";
 		return rowString;
@@ -804,14 +804,14 @@ $(document).ready(function(){
 		var formattedTime = year+"-"+month.substr(-2)+"-"+day.substr(-2)+" "+hours.substr(-2) + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
 
 		var rowString = "<div class='detailrow animated flipInX'>"+
-		"<div class='src'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+flagSource+".svg' title='"+sourceIp+"' /> "+sourceName+" ("+sourceIp+")</div>"+
-		"<div class='srcport'>"+sourcePort+"</div>"+
-		"<div class='dst'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+flagDes+".svg' title='"+desIp+"' /> "+desName+" ("+desIp+")</div>"+
-		"<div class='dstport'><span class='filter-button' filter='desport' value-filter='"+desPort+"'>"+desPort+"</span></div>"+
-		"<div class='protocol'>"+protocol+"</div>"+
-		"<div class='priority'><span priority='"+priority+"'>"+(priority == 1 ? "HIGH" : priority == 2 ? "MEDIUM" : "LOW")+"</span></div>"+
-		"<div class='sig'>"+signature+"</div>"+	
-		"<div class='classification'>"+classification+"</div>"+	
+		"<div class='src'><span class='filter-row' filter-id='filter-location' idsrc='"+sourceCode+"' iddes='"+desCode+"'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+flagSource+".svg' title='"+sourceIp+"' /> "+sourceName+" ("+sourceIp+")</span></div>"+
+		"<div class='srcport'><span class='filter-row' filter-id='srcport' value-filter='"+sourcePort+"'>"+sourcePort+"</span></div>"+
+		"<div class='dst'><span class='filter-row' filter-id='filter-location' idsrc='"+sourceCode+"' iddes='"+desCode+"'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+flagDes+".svg' title='"+desIp+"' /> "+desName+" ("+desIp+")</span></div>"+
+		"<div class='dstport'><span class='filter-row' filter-id='dstport' value-filter='"+desPort+"'>"+desPort+"</span></div>"+
+		"<div class='protocol'><span class='filter-row' filter-id='protocol' value-filter='"+protocol+"'>"+protocol+"</span></div>"+
+		"<div class='priority'><span class='filter-row' filter-id='priority' value-filter='"+priority+"' priority='"+priority+"'>"+(priority == 1 ? "HIGH" : priority == 2 ? "MEDIUM" : "LOW")+"</span></div>"+
+		"<div class='sig'><span class='filter-row' filter-id='signame' value-filter='"+signature+"' title='"+signature+"'>"+signature+"</span></div>"+	
+		"<div class='classification'><span class='filter-row' filter-id='classification' value-filter='"+classification+"' title='"+classification+"'>"+classification+"</span></div>"+	
 		"<div class='date'>"+formattedTime+"</div>"+
 		"</div>";
 		return rowString;
@@ -914,14 +914,14 @@ $(document).ready(function(){
 
 		$(".detail-body").css("height",heightDetail+"px");
 		
-		if(typeData=="connectivity")
+		/*if(typeData=="connectivity")
 		{
 			getTrigger();
 
 			var loadTrigger=setInterval(function() {
 				getTrigger();
 			}, 60000);
-		}
+		}*/
 	}
 	
 	function rePosition()
