@@ -778,9 +778,9 @@ $(document).ready(function(){
 
 		var rowString = "<div class='detailrow animated flipInX'>"+
 		"<div class='source'>"+sourceIp+"</div>"+
-		"<div class='src'><span class='filter-row' filter-id='filter-location' idsrc='"+idSource+"' iddes='"+idDes+"'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+imgSource+".svg' title='"+sourceDisplay+"' /> "+sourceDisplay+" ("+ipSource+")</span></div>"+
+		"<div class='src'><span class='filter-row' filter-id='filter-location' idsrc='"+idSource+"' iddes='"+idDes+"' direction='from'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+imgSource+".svg' title='"+sourceDisplay+"' /> "+sourceDisplay+" ("+ipSource+")</span></div>"+
 		"<div class='src_port'><span class='filter-row' filter-id='srcport' value-filter='"+srcport+"'>"+srcport+"</span></div>"+
-		"<div class='dst'><span class='filter-row' filter-id='filter-location' idsrc='"+idSource+"' iddes='"+idDes+"'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+imgDes+".svg' title='"+desDisplay+"' /> "+desDisplay+" ("+ipDes+")</span></div>"+
+		"<div class='dst'><span class='filter-row' filter-id='filter-location' idsrc='"+idSource+"' iddes='"+idDes+"' direction='to'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+imgDes+".svg' title='"+desDisplay+"' /> "+desDisplay+" ("+ipDes+")</span></div>"+
 		"<div class='dst_port'><span class='filter-row' filter-id='dstport' value-filter='"+dstport+"'>"+dstport+"</span></div>"+
 		"<div class='protocol'><span class='filter-row' filter-id='protocol' value-filter='"+protocol+"'>"+protocol+"</span></div>"+
 		"<div class='action'><span class='filter-row' filter-id='action' value-filter='"+action+"' action='"+action+"'>"+action+"</span></div>"+
@@ -815,9 +815,9 @@ $(document).ready(function(){
 		var formattedTime = year+"-"+month.substr(-2)+"-"+day.substr(-2)+" "+hours.substr(-2) + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
 
 		var rowString = "<div class='detailrow animated flipInX'>"+
-		"<div class='src'><span class='filter-row' filter-id='filter-location' idsrc='"+sourceCode+"' iddes='"+desCode+"'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+flagSource+".svg' title='"+sourceIp+"' /> "+sourceName+" ("+sourceIp+")</span></div>"+
+		"<div class='src'><span class='filter-row' filter-id='filter-location' idsrc='"+sourceCode+"' iddes='"+desCode+"' direction='from'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+flagSource+".svg' title='"+sourceIp+"' /> "+sourceName+" ("+sourceIp+")</span></div>"+
 		"<div class='srcport'><span class='filter-row' filter-id='srcport' value-filter='"+sourcePort+"'>"+sourcePort+"</span></div>"+
-		"<div class='dst'><span class='filter-row' filter-id='filter-location' idsrc='"+sourceCode+"' iddes='"+desCode+"'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+flagDes+".svg' title='"+desIp+"' /> "+desName+" ("+desIp+")</span></div>"+
+		"<div class='dst'><span class='filter-row' filter-id='filter-location' idsrc='"+sourceCode+"' iddes='"+desCode+"' direction='to'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+flagDes+".svg' title='"+desIp+"' /> "+desName+" ("+desIp+")</span></div>"+
 		"<div class='dstport'><span class='filter-row' filter-id='dstport' value-filter='"+desPort+"'>"+desPort+"</span></div>"+
 		"<div class='protocol'><span class='filter-row' filter-id='protocol' value-filter='"+protocol+"'>"+protocol+"</span></div>"+
 		"<div class='priority'><span class='filter-row' filter-id='priority' value-filter='"+priority+"' priority='"+priority+"'>"+(priority == 1 ? "HIGH" : priority == 2 ? "MEDIUM" : "LOW")+"</span></div>"+

@@ -188,8 +188,17 @@ $(document).ready(function(){
 				addToArrayFilterType(filterId,value,filterClassification);
 			break;
 			case 'filter-location':
-				var srcId = $(this).attr("idsrc");
-				var desId = $(this).attr("iddes");
+				var direction = $(this).attr("direction");
+				var srcId;
+				var desId;
+				console.log(direction);
+				if(direction=="from"){
+					srcId = $(this).attr("idsrc");
+					desId = "all";
+				} else if(direction=="to"){
+					srcId = "all";
+					desId = $(this).attr("iddes");
+				}
 				
 				$("#filter-location div[combobox='left'] select").val(srcId);
 				$("#filter-location div[combobox='right'] select").val(desId);
