@@ -287,7 +287,7 @@ $(document).ready(function(){
 					intervalDetailA = setInterval(function() {
 						displayToScreenDetailA();
 					}, 600000);
-				}
+				} 
 				else
 				{
 					clearInterval(intervalDetailC);
