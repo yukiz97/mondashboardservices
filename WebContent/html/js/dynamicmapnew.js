@@ -286,7 +286,7 @@ $(document).ready(function(){
 
 					intervalDetailA = setInterval(function() {
 						displayToScreenDetailA();
-					}, 5000);
+					}, 600000);
 				}
 				else
 				{
@@ -807,7 +807,7 @@ $(document).ready(function(){
 		"<div class='src'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+flagSource+".svg' title='"+sourceIp+"' /> "+sourceName+" ("+sourceIp+")</div>"+
 		"<div class='srcport'>"+sourcePort+"</div>"+
 		"<div class='dst'><img style='width:17px;padding-bottom:5px;' src='images/flags/4x3/"+flagDes+".svg' title='"+desIp+"' /> "+desName+" ("+desIp+")</div>"+
-		"<div class='dstport'>"+desPort+"</div>"+
+		"<div class='dstport'><span class='filter-button' filter='desport' value-filter='"+desPort+"'>"+desPort+"</span></div>"+
 		"<div class='protocol'>"+protocol+"</div>"+
 		"<div class='priority'><span priority='"+priority+"'>"+(priority == 1 ? "HIGH" : priority == 2 ? "MEDIUM" : "LOW")+"</span></div>"+
 		"<div class='sig'>"+signature+"</div>"+	
