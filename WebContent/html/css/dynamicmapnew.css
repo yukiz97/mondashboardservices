@@ -277,11 +277,11 @@ circle {
 }
 
 #detail-c .src {
-	width: 15%;
+	width: 10%;
 }
 
 #detail-c .dst {
-	width: 15%;
+	width: 10%;
 }
 
 #detail-c .detail-header .dst {
@@ -289,7 +289,7 @@ circle {
 }
 
 #detail-c .sig {
-	width: 25%;
+	width: 35%;
 }
 
 #detail-c .classification {
@@ -346,11 +346,7 @@ circle {
 }
 
 #detail-c .detail-header .sig {
-	margin-left: -4px;
-}
-
-#detail-c .detail-header .priority {
-	margin-left: -10px;
+	margin-left: -15px;
 }
 
 #detail-c .detail-body .sig {
@@ -423,13 +419,11 @@ button:focus {
 
 #modal-filter {
 	color: #524c4c !important;
-	font-size: 12px !important;
 }
 
 #modal-filter .modal-header {
 	background: #337ab7;
 	color: #fff;
-	padding: 10px;
 }
 
 #modal-filter hr {
@@ -467,21 +461,4 @@ button:focus {
 }
 .location-filter-result span{
 	font-weight: bold;
-}
-
-.modal-lg {
-    width: 500px;
-}
-
-.select2-container--default .select2-results__group {
-    font-size: 12px !important;
-}
-
-.select2-container--default .select2-results__option .select2-results__option {
-    font-size: 12px !important;
-}
-
-.modal-title {
-    font-size: 14px !important;
-    font-weight: 600 !important;
 }
