@@ -350,7 +350,7 @@ $(document).ready(function(){
 
 					intervalDetailC = setInterval(function() {
 						displayToScreenDetailC();
-					}, 5000);
+					}, 5000000);
 				}
 				$("svg path").each(function() {
 					var key = $(this).attr("key");

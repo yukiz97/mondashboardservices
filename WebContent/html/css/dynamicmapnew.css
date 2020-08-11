@@ -359,6 +359,7 @@ circle {
 	overflow: hidden;
 	margin-bottom: -5px;
 	padding-left: 10px;
+	box-sizing: border-box;
 }
 
 #detail-c .detail-body .classification {
@@ -489,7 +490,19 @@ button:focus {
 .filter-row {
 	cursor: pointer;
 }
-.filter-row:hover, .filter-hover {
+.filter-row:hover, .filter-hover, #detail-c .detail-body .sig:hover {
+	/*
 	background: #fff;
 	color: #544747;
+	*/
+	border: 1px solid #fff;
+	border-radius: 3px;
+	box-shadow: 0 0 2px 1px #fff;
+	padding: 2px 5px;
+}
+.filter-row:hover[filter-id='signame'],.filter-row:hover[filter-id='classification']{
+	border: none;
+	border-radius: 0px;
+	box-shadow: none;
+	padding: 0px;
 }
