@@ -109,11 +109,9 @@
 			<div class="detail-body" id="mar-detail-c"></div>
 		</div>
 	</div>
-</body>
-</html>
-
+	
 <div id="modal-filter" class="modal fade" role="dialog">
-	<div class="modal-dialog  modal-lg">
+	<div class="modal-dialog  modal-lg" style="width: 500px;">
 
 		<!-- Modal content-->
 		<div class="modal-content">
@@ -125,6 +123,8 @@
 				<div id="protocol">
 					<div class="form-group">
 						<label for="protocol">Giao thức:</label>
+						<button class="btn btn-primary btn-filterchoose" filter="protocol"
+							value-filter="all" style="margin-left:30px;">Tất cả</button>
 						<div class="btn-group">
 							<button active="false" class="btn btn-default btn-filterchoose"
 								filter="protocol" value-filter="TCP">TCP</button>
@@ -133,9 +133,6 @@
 							<button active="false" class="btn btn-default btn-filterchoose"
 								filter="protocol" value-filter="ICMP">ICMP</button>
 						</div>
-
-						<button class="btn btn-primary btn-filterchoose" filter="protocol"
-							value-filter="all">Tất cả</button>
 					</div>
 					<div class='result-type'></div>
 					<hr>
@@ -143,15 +140,14 @@
 				<div id="action">
 					<div class="form-group">
 						<label for="action">Hành động:</label>
+						<button class="btn btn-primary btn-filterchoose" filter="action"
+							value-filter="all" style="margin-left:24px;">Tất cả</button>
 						<div class="btn-group">
 							<button active="false" class="btn btn-default btn-filterchoose"
 								filter="action" value-filter="ALLOW">ALLOW</button>
 							<button active="false" class="btn btn-default btn-filterchoose"
 								filter="action" value-filter="DROP">DROP</button>
 						</div>
-
-						<button class="btn btn-primary btn-filterchoose" filter="action"
-							value-filter="all">Tất cả</button>
 					</div>
 					<div class='result-type'></div>
 					<hr>
@@ -159,6 +155,8 @@
 				<div id="priority">
 					<div class="form-group">
 						<label for="priority">Mức độ:</label>
+						<button class="btn btn-primary btn-filterchoose" filter="priority"
+							value-filter="all" style="margin-left:42px;">Tất cả</button>
 						<div class="btn-group">
 							<button active="false" class="btn btn-default btn-filterchoose"
 								filter="priority" value-filter="1">HIGH</button>
@@ -167,9 +165,6 @@
 							<button active="false" class="btn btn-default btn-filterchoose"
 								filter="priority" value-filter="3">LOW</button>
 						</div>
-
-						<button class="btn btn-primary btn-filterchoose" filter="priority"
-							value-filter="all">Tất cả</button>
 					</div>
 					<div class='result-type'></div>
 					<hr>
@@ -243,4 +238,7 @@
 
 	</div>
 </div>
+	
+</body>
+</html>
 

@@ -470,17 +470,25 @@ button:focus {
 .location-filter-result span{
 	font-weight: bold;
 }
-
+/*
 .modal-lg {
-    width: 700px;
+    width: 500px;
 }
-
+*/
 .select2-container--default .select2-results__group {
     font-size: 12px !important;
 }
 
 .select2-container--default .select2-results__option .select2-results__option {
     font-size: 12px !important;
+}
+
+.btn-filterchoose {
+	width: 90px;
+}
+
+.btn {
+	padding: 4px 10px 3px 10px !important;
 }
 
 .modal-title {
