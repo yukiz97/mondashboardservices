@@ -38,7 +38,7 @@
 		<button id="btn-replay" title="Xem lại">
 			<i class='fa fa-step-backward'></i>
 		</button>
-		<button id="btn-realtime" title="Xem trực tuyến">
+		<button status="pause" id="btn-realtime" title="Xem trực tuyến">
 			<i class='fa fa-play'></i>
 		</button>
 		<button id="btn-filter" title="Bộ lọc" data-toggle="modal"
@@ -60,6 +60,11 @@
 					DANH SÁCH CÁC KẾT NỐI
 					<div id='connect-count' class="count">0</div>
 				</h4>
+				<div class="detail-function">
+					<button status="play" class="btn-detail-play"><i class='fa fa-pause'></i></button>
+					<button class="btn-detail-left"><i class='fa fa-chevron-left'></i></button>
+					<button class="btn-detail-right"><i class='fa fa-chevron-right'></i></button>
+				</div>
 				<div class="detailrow">
 					<div class="source">Nguồn dữ liệu</div>
 					<div class="src">Địa chỉ IP nguồn</div>
@@ -94,6 +99,11 @@
 					DANH SÁCH DẤU HIỆU TẤN CÔNG
 					<div id='attack-count' class="count">0</div>
 				</h4>
+				<div class="detail-function">
+					<button status="play" class="btn-detail-play"><i class='fa fa-pause'></i></button>
+					<button class="btn-detail-left"><i class='fa fa-chevron-left'></i></button>
+					<button class="btn-detail-right"><i class='fa fa-chevron-right'></i></button>
+				</div>
 				<div class="detailrow">
 					<div class="src">Địa chỉ IP nguồn</div>
 					<div class="srcport">Cổng nguồn</div>

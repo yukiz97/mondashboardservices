@@ -43,7 +43,6 @@ $(document).ready(function(){
 	var indexDetailC = 0;
 	var intervalDetailC;
 
-	var autoChangePage = true;
 	var myInterval;
 	
 	if(!params.has('left') || !params.has('right') || !params.has("type"))
@@ -85,31 +84,17 @@ $(document).ready(function(){
 	});
 
 	$("#btn-realtime").on("click",function(){
-		var status = $(this).attr("status");
-		var message = "";
-		if(status=="pause"){
-			removeAllDisplayElement();
-			if(realtime==false)
-			{
-				realtime = true;
-			}
-			getMainData();
-			clearInterval(myInterval);
-	
-			myInterval = setInterval(function() {
-				getMainData();
-			}, 20000);
-			
-			$(this).children("i").removeClass("fa-play");
-			$(this).children("i").addClass("fa-pause");
-			
-			$(this).attr("status","play");
-		} else if(status=="play"){
-			$(this).children("i").removeClass("fa-pause");
-			$(this).children("i").addClass("fa-play");
-			clearInterval(myInterval);
-			$(this).attr("status","pause");
+		removeAllDisplayElement();
+		if(realtime==false)
+		{
+			realtime = true;
 		}
+		getMainData();
+		clearInterval(myInterval);
+
+		myInterval = setInterval(function() {
+			getMainData();
+		}, 20000);
 	});
 	
 	$("#apply-filter-replay").on("click",function(){
@@ -306,11 +291,9 @@ $(document).ready(function(){
 					$("#connect-count").html(countItem);
 					displayToScreenDetailA();
 
-					if(autoChangePage){
-						intervalDetailA = setInterval(function() {
-							displayToScreenDetailA();
-						}, 5000);
-					}
+					intervalDetailA = setInterval(function() {
+						displayToScreenDetailA();
+					}, 5000);
 				} 
 				else
 				{
@@ -363,13 +346,11 @@ $(document).ready(function(){
 					console.log(arrayData);
 					
 					$("#attack-count").html(countItem);					
-					displayToScreenDetailC("forward");
+					displayToScreenDetailC();
 
-					if(autoChangePage){
-						intervalDetailC = setInterval(function() {
-							displayToScreenDetailC("forward");
-						}, 5000);
-					}
+					intervalDetailC = setInterval(function() {
+						displayToScreenDetailC();
+					}, 5000000);
 				}
 				$("svg path").each(function() {
 					var key = $(this).attr("key");
@@ -495,18 +476,12 @@ $(document).ready(function(){
 		$("#formtomenute").html(strMinute);
 	}
 	
-	function displayToScreenDetailA(direction)
+	function displayToScreenDetailA()
 	{
 		$("#mar-detail-a").html("");
 		if(arrayDetailA.length==0)
 		{
 			return;
-		}
-		
-		if(indexDetailA == arrayDetailA.length - 1)
-		{
-			if(direction == "forward")
-				indexDetailA = 0;
 		}
 
 		var heightDisplay = $("#mar-detail-a").height();
@@ -515,39 +490,78 @@ $(document).ready(function(){
 
 		var i;
 
-		if(direction=="forward"){
-			i = indexDetailA;
-		} else {
-			i = indexDetailA-(limit*2);
-			
-			if(i<0){
-				i = 0;
-			}
-		}
-		endIndex = i+limit;
-		for(i;i<endIndex;i++)
+		/*console.log(heightDisplay);
+		console.log("start: "+indexDetailA);
+		console.log("limit: "+limit);
+		console.log("array size: "+arrayDetailA.length);*/
+
+		var checkOutOfArray = false;
+		for(i = indexDetailA;i<(indexDetailA+limit);i++)
 		{
 			$("#mar-detail-a").append(arrayDetailA[i]);
 			if(i==(arrayDetailA.length - 1))
 			{
+				checkOutOfArray = true;
 				break;
 			}
 		}
-		indexDetailA = i;
+
+		if(checkOutOfArray)
+		{
+			indexDetailA = 0;
+		}
+		else
+		{
+			indexDetailA = i;
+		}
 	} 
+
+	function displayToScreenDetailB()
+	{
+		$("#mar-detail-b").html("");
+		if(arrayDetailB.length==0)
+		{
+			return;
+		}
+
+		var heightDisplay = $("#mar-detail-b").height();
+
+		var limit = returnLimit(heightDisplay,23);
+
+		var i;
+
+		/*console.log(heightDisplay);
+		console.log("start: "+indexDetailB);
+		console.log("limit: "+limit);
+		console.log("array size: "+arrayDetailB.length);*/
+
+		var checkOutOfArray = false;
+		for(i = indexDetailB;i<(indexDetailB+limit);i++)
+		{
+			$("#mar-detail-b").append(arrayDetailB[i]);
+			if(i==(arrayDetailB.length - 1))
+			{
+				checkOutOfArray = true;
+				break;
+			}
+		}
+
+		if(checkOutOfArray)
+		{
+			indexDetailB = 0;
+		}
+		else
+		{
+			indexDetailB = i;
+		}
+	}
 	
-	function displayToScreenDetailC(direction)
+	function displayToScreenDetailC()
 	{
 		$("#mar-detail-c").html("");
 		if(arrayDetailC.length==0)
 		{
 			return;
-		}
-		console.log(indexDetailC + " - "+ arrayDetailC.length+"----");
-		if(indexDetailC == arrayDetailC.length - 1)
-		{
-			if(direction == "forward")
-				indexDetailC = 0;
 		}
 
 		var heightDisplay = $("#mar-detail-c").height();
@@ -555,80 +569,27 @@ $(document).ready(function(){
 		var limit = returnLimit(heightDisplay,33);
 
 		var i;
-		
-		if(direction=="forward"){
-			i = indexDetailC;
-		} else {
-			i = indexDetailC-(limit*2);
-			
-			if(i<0){
-				i = 0;
-			}
-		}
 
-		endIndex = i+limit;
-		console.log(i+" - "+indexDetailC);
-		for(i;i<endIndex;i++)
+		var checkOutOfArray = false;
+		for(i = indexDetailC;i<(indexDetailC+limit);i++)
 		{
 			$("#mar-detail-c").append(arrayDetailC[i]);
 			if(i==(arrayDetailC.length - 1))
 			{
+				checkOutOfArray = true;
 				break;
 			}
 		}
-		indexDetailC = i;
+
+		if(checkOutOfArray)
+		{
+			indexDetailC = 0;
+		}
+		else
+		{
+			indexDetailC = i;
+		}
 	}
-	
-	$(".btn-detail-play").on("click",function(){
-		var status = $(this).attr("status");
-		if(status=="play"){
-			if(typeData=="connectivity"){
-				clearInterval(intervalDetailA);
-			} else if(typeData=="snort"){
-				clearInterval(intervalDetailC);
-			}
-			
-			$(this).children("i").removeClass("fa-pause");
-			$(this).children("i").addClass("fa-play");
-			
-			$(this).attr("status","pause");
-			autoChangePage = false;
-		} else if(status == "pause"){
-			if(typeData=="connectivity"){
-				intervalDetailA = setInterval(function() {
-					displayToScreenDetailA("forward");
-				}, 5000);
-			} else if(typeData=="snort"){
-				intervalDetailC = setInterval(function() {
-					displayToScreenDetailC("forward");
-				}, 5000);
-			}
-			
-			$(this).children("i").removeClass("fa-play");
-			$(this).children("i").addClass("fa-pause");
-			
-			$(this).attr("status","play");
-			autoChangePage = true;
-		}
-	});
-	
-	$(".btn-detail-left").on("click",function(){
-		if(typeData=="connectivity"){
-			displayToScreenDetailA("backward")
-		} else if(typeData=="snort"){
-			displayToScreenDetailC("backward")
-		}
-	});
-	
-	$(".btn-detail-right").on("click",function(){
-		var type = $(this).attr("type");
-		
-		if(typeData=="connectivity"){
-			displayToScreenDetailA("forward")
-		} else if(typeData=="snort"){
-			displayToScreenDetailC("forward")
-		}
-	});
 	
 	function appendDisplay(idSource,idDes,action)
 	{
