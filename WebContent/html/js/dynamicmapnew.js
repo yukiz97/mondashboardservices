@@ -985,14 +985,33 @@ $(document).ready(function(){
 			}, 60000);
 		}*/
 	}
-	
-	function rePosition()
+	var intervalHeader;
+
+	rePositionHeader();
+	function rePositionHeader()
 	{
+		if($("#maps-name").width()==0)
+		{
+			console.log("recursive for height");
+
+			intervalHeader = setInterval(function() {
+				rePositionHeader();
+			}, 500);
+
+			return;
+		}
+		else
+		{
+			clearInterval(intervalHeader);
+		}
 		var typeMapNameleft = $("#type-map-name").width() / 2;
 		$("#type-map-name").css("left","calc(50% - "+typeMapNameleft+"px)");
 		var typeMapNameleft = $("#maps-name").width() / 2;
 		$("#maps-name").css("left","calc(50% - "+typeMapNameleft+"px)");
-		
+		console.log($("#type-map-name").width());
+	}
+	function rePosition()
+	{
 		var bodyWidth = $("body").width();
 		var svgWidth = $("#svg-container").width();
 		
