@@ -1,5 +1,4 @@
 var url = "/mondashboardservices/rest/";
-var urlMonservice = "/monservice/service/";
 
 var loadStatusViewInterval;
 var loadFlowViewInterval;

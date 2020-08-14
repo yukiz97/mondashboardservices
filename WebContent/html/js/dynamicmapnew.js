@@ -46,6 +46,8 @@ $(document).ready(function(){
 	var autoChangePage = true;
 	var myInterval;
 	
+	var modeView = "Chế độ xem: ";
+	
 	if(!params.has('left') || !params.has('right') || !params.has("type"))
 	{
 		window.location.href = 'index.html';
@@ -82,11 +84,17 @@ $(document).ready(function(){
 		clearInterval(myInterval);
 		realtime = false;
 		getMainData();
+		$("#btn-realtime").children("i").removeClass("fa-pause");
+		$("#btn-realtime").children("i").addClass("fa-play");
+		$("#btn-realtime").attr("status","pause");
+		$("#btn-realtime").attr("title","Nhấn để xem trực tuyến");
+		$("#mode-name").html(modeView+"<span style='background: #5c2622;'>Phát lại</span>");
 	});
 
 	$("#btn-realtime").on("click",function(){
 		var status = $(this).attr("status");
 		var message = "";
+		$("#mode-name").html(modeView+"<span style='background: #172f42;'>Trực tuyến</span>");
 		if(status=="pause"){
 			removeAllDisplayElement();
 			if(realtime==false)
@@ -104,11 +112,13 @@ $(document).ready(function(){
 			$(this).children("i").addClass("fa-pause");
 			
 			$(this).attr("status","play");
+			$(this).attr("title","Nhấn để dừng xem trực tuyến");
 		} else if(status=="play"){
 			$(this).children("i").removeClass("fa-pause");
 			$(this).children("i").addClass("fa-play");
 			clearInterval(myInterval);
 			$(this).attr("status","pause");
+			$(this).attr("title","Nhấn để xem trực tuyến");
 		}
 	});
 	
@@ -592,6 +602,7 @@ $(document).ready(function(){
 			$(this).children("i").addClass("fa-play");
 			
 			$(this).attr("status","pause");
+			$(this).attr("title","Chuyển trang tự động");
 			autoChangePage = false;
 		} else if(status == "pause"){
 			if(typeData=="connectivity"){
@@ -608,6 +619,7 @@ $(document).ready(function(){
 			$(this).children("i").addClass("fa-pause");
 			
 			$(this).attr("status","play");
+			$(this).attr("title","Dừng chuyển trang tự động");
 			autoChangePage = true;
 		}
 	});
@@ -976,10 +988,16 @@ $(document).ready(function(){
 	
 	function rePosition()
 	{
+		var typeMapNameleft = $("#type-map-name").width() / 2;
+		$("#type-map-name").css("left","calc(50% - "+typeMapNameleft+"px)");
+		var typeMapNameleft = $("#maps-name").width() / 2;
+		$("#maps-name").css("left","calc(50% - "+typeMapNameleft+"px)");
+		
 		var bodyWidth = $("body").width();
 		var svgWidth = $("#svg-container").width();
 		
 		var result = bodyWidth-svgWidth;
+//		console.log("body "+bodyWidth+" svg "+svgWidth+" result "+result);
 		if(result>0)
 			$("#svg-container").css("margin-left",(result/2));
 	}

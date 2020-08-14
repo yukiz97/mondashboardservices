@@ -56,16 +56,31 @@ to {
 
 #type-map-name {
 	position: absolute;
-	top: -8px;
+	top: -17px;
 	left: calc(50% - 213px);
 	font-size: 25px;
 }
 
 #maps-name {
 	position: absolute;
-	top: -8px;
-	right: 20px;
+	top: 10px;
+	left: calc(50% - 65px);
 	font-size: 20px;
+}
+
+#mode-name {
+	position: absolute;
+	top: -15px;
+	right: 2px;
+	font-size: 14px;
+}
+
+#mode-name span {
+	color: #cccccc;
+    display: inline-block;
+    padding: 3px 5px;
+    font-weight: 600;
+    border-radius: 3px;
 }
 
 #form-select-date label {
@@ -119,6 +134,7 @@ to {
 	top: 0px;
 	max-width: 100%;
 	height: auto;
+	z-index:-1;
 }
 
 #svg-container img { /* <= optional, for responsiveness */
@@ -521,12 +537,14 @@ button:focus {
 .detail-function{
 	display: inline-block;
     position: absolute;
-    top: 1px;
-    right: 1px;
+    top: 4px;
+    right: 4px;
 }
 .detail-function button {
-	background: #415465fa;
+	background: #326ea238;
+    box-shadow: none;
+    border: none;
 }
 .detail-function button i {
-	color: #fff;
+	color: #ccc;
 }
