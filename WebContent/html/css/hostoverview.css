@@ -37,6 +37,9 @@
     font-weight: bold;
     text-transform: uppercase;
 }
+.hostoverview-servicestate-display[value='0']{
+	opacity:0.6;
+}
 .viewlist .viewlayout .body .viewrow{
 	padding: 0px 5px !important;
 }

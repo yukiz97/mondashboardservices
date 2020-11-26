@@ -6,22 +6,20 @@ $(document).ready(function(){
 	if(params.has('hoststate'))
 	{
 		hostState = params.get('hoststate');
+	}
+	hostStateArray = hostState.split(",");
 		
-		hostStateArray = hostState.split(",");
-		
-		for(i = 0; i < hostStateArray.length;i++){
-			$(".cb-hoststate[value='"+hostStateArray[i]+"']").attr("checked",true);
-		}
+	for(i = 0; i < hostStateArray.length;i++){
+		$(".cb-hoststate[value='"+hostStateArray[i]+"']").attr("checked",true);
 	}
 	if(params.has('servicestate'))
 	{
 		serviceState = params.get('servicestate');
+	}
+	serviceStateArray = serviceState.split(",");
 		
-		serviceStateArray = serviceState.split(",");
-		
-		for(i = 0; i < serviceStateArray.length;i++){
-			$(".cb-servicestate[value='"+serviceStateArray[i]+"']").attr("checked",true);
-		}
+	for(i = 0; i < serviceStateArray.length;i++){
+		$(".cb-servicestate[value='"+serviceStateArray[i]+"']").attr("checked",true);
 	}
 	
 	var hostOverviewURL = url+"hostoverview/";
@@ -125,11 +123,11 @@ $(document).ready(function(){
 			
 		}
 		
-		strResult = "<span class='hostoverview-servicestate-display' style='background:ForestGreen'>"+ok+"</span>"
-		+"<span class='hostoverview-servicestate-display' style='background:GoldenRod'>"+warning+"</span>"
-		+"<span class='hostoverview-servicestate-display' style='background:PaleVioletRed'>"+critical+"</span>"
-		+"<span class='hostoverview-servicestate-display' style='background:DarkGrey'>"+unknown+"</span>"
-		+"<span class='hostoverview-servicestate-display' style='background:purple'>"+pending+"</span>";
+		strResult = "<span class='hostoverview-servicestate-display' value='"+ok+"' style='background:ForestGreen'>"+ok+"</span>"
+		+"<span class='hostoverview-servicestate-display' value='"+warning+"' style='background:GoldenRod'>"+warning+"</span>"
+		+"<span class='hostoverview-servicestate-display' value='"+critical+"' style='background:PaleVioletRed'>"+critical+"</span>"
+		+"<span class='hostoverview-servicestate-display' value='"+unknown+"' style='background:DarkGrey'>"+unknown+"</span>"
+		+"<span class='hostoverview-servicestate-display' value='"+pending+"' style='background:purple'>"+pending+"</span>";
 		
 		return strResult;
 	}

@@ -2,6 +2,7 @@ var url = "/mondashboardservices/rest/";
 
 var loadStatusViewInterval;
 var loadFlowViewInterval;
+var loadHostOverviewInterval;
 
 var currentshow = "";
 $(document).ready(function(){
@@ -37,6 +38,13 @@ $(document).ready(function(){
 					clearInterval(loadStatusViewInterval);
 				}
 			break;
+			case 'hostoverview':
+			fileName = "hostoverview.html";
+			typeChoose = "hostoverview";
+				if (loadHostOverviewInterval !== undefined && loadHostOverviewInterval !== null) {
+					clearInterval(loadHostOverviewInterval);
+				}
+			break;
 		}
 		if(typeChoose != currentshow)
 		{
@@ -69,6 +77,13 @@ $(document).ready(function(){
 			fileName = "viewflowlist.html";
 				if (loadStatusViewInterval !== undefined && loadStatusViewInterval !== null) {
 					clearInterval(loadStatusViewInterval);
+				}
+			break;
+			case 'hostoverview':
+			fileName = "hostoverview.html";
+			typeChoose = "hostoverview";
+				if (loadHostOverviewInterval !== undefined && loadHostOverviewInterval !== null) {
+					clearInterval(loadHostOverviewInterval);
 				}
 			break;
 		}
