@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" href="css/animate.css"/>
+	<link rel="stylesheet" href="css/sweetalert.css"/>
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="css/svgTimer.css"/>
+	<link rel="stylesheet" href="css/jquery.contextMenu.min.css">
+	<link rel="stylesheet" href="css/style.css"/>
+	<link rel="stylesheet" href="css/hostoverview.css"/>
+	<link rel='shortcut icon' type='image/x-icon' href='favicon.ico'/>
+
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/sweetalert.min.js"></script>
+	<script type="text/javascript" src="js/svgTimer.js"></script>
+	<script type="text/javascript" src="js/jquery.contextMenu.min.js"></script>
+	<script type="text/javascript" src="js/jquery.ui.position.min.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/hostoverview.js"></script>
+
+	<title>IT Monitoring Appliance | Màn hình giám sát</title>
+</head>
+<body>
+	<div class="dashboard-header" id="viewflowlist-header">
+		<img id="logo" src="images/realtech_fulllogo.png" alt="realtechlogo">
+		<div class="viewcaption">Tổng quan trạng thái Host</div>
+		<div id="refresh-time">
+			
+		</div>
+	</div>
+	
+	<div class="viewlist">
+		<div class="general" id="general-hostview">
+			<button class="btn btn-primary" data-toggle="modal" data-target="#modal-filter">Lọc kết quả</button>
+		</div>
+		<div class="viewlayout">
+			<div class="viewrow header">
+				<div class="block-row hostname">Tên Host</div>
+				<div class="block-row hostip">Địa chỉ IP Host</div>
+				<div class="block-row host-state">Trạng thái Host</div>
+				<div class="block-row service-ofhost-state">Trạng thái Service của Host</div>
+			</div>
+			<div class="body">
+				
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+<div id="modal-filter" class="modal fade" role="dialog">
+	<div class="modal-dialog  modal-lg" style="width: 500px;">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Bộ lọc nâng cao</h4>
+			</div>
+			<div class="modal-body">
+				<div id="hoststate">
+					<div class="form-group">
+						<label for="protocol">Trạng thái Host:</label>
+						<div>
+							<label style="color:ForestGreen" class="checkbox-inline"><input class="cb-hoststate" type="checkbox" value="0">UP</label>
+							<label style="color:PaleVioletRed" class="checkbox-inline"><input class="cb-hoststate" type="checkbox" value="1">DOWN</label>
+							<label style="color:DarkGrey" class="checkbox-inline"><input class="cb-hoststate" type="checkbox" value="2">UNREACHABLE</label>
+							<label style="color:purple" class="checkbox-inline"><input class="cb-hoststate" type="checkbox" value="3">PENDING</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="protocol">Trạng thái Service:</label>
+						<div>
+							<label style="color:ForestGreen" class="checkbox-inline"><input class="cb-servicestate" type="checkbox" value="0">OK</label>
+							<label style="color:GoldenRod" class="checkbox-inline"><input class="cb-servicestate" type="checkbox" value="1">WARNING</label>
+							<label style="color:PaleVioletRed" class="checkbox-inline"><input class="cb-servicestate" type="checkbox" value="2">CRITICAL</label>
+							<label style="color:DarkGrey" class="checkbox-inline"><input class="cb-servicestate" type="checkbox" value="3">UNKNOWN</label>
+							<label style="color:purple" class="checkbox-inline"><input class="cb-servicestate" type="checkbox" value="4">PENDING</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" data-dismiss="modal"
+					id="btn-applyfilter-current">Áp dụng cho trang hiện tại</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal"
+					id="btn-applyfilter-new">Mở trang mới</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+			</div>
+		</div>
+
+	</div>
+</div>

@@ -1,0 +1,48 @@
+#general-hostview{
+	padding: 8px;
+    height: 50px;
+}
+.hostname{
+	width:15%;
+}
+.body .hostname,.body .hostip {
+	color: #e8e7e7;
+    font-weight: bold;
+    font-size: 16px;
+}
+.hostip{
+	width:15%;
+}
+.host-state{
+	width:10%;
+}
+.service-ofhost-state{
+	width:40%;
+}
+.hostoverview-hoststate-display{
+	display: inline-block;
+    width: 131px;
+    padding: 10px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.hostoverview-servicestate-display{
+	display: inline-block;
+    width: 50px;
+    padding: 10px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.viewlist .viewlayout .body .viewrow{
+	padding: 0px 5px !important;
+}
+#modal-filter{
+	color:black;
+}
+.checkbox-inline{
+	font-weight:bold;
+}
