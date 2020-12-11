@@ -127,7 +127,12 @@ $(document).ready(function(){
 	});
 	
 	$("#apply-filter-realtime").on("click",function(){
-		$("#btn-realtime").trigger("click");
+		if($("#btn-realtime").attr("status")=="play"){
+			$("#btn-realtime").trigger("click");
+		    $("#btn-realtime").trigger("click");
+		} else {
+			$("#btn-realtime").trigger("click");
+		}
 	});
 	
 	function getSigNameList(){
@@ -281,11 +286,12 @@ $(document).ready(function(){
 					
 					var countItem = 0;
 					data.forEach(function(item){
-						var idItem = item.from+"-"+item.to;
-						var srcport = item.src_port;
-						var dstport = item.dst_port;
-						var protocol = item.protocol;
-						var action = item.action;
+						 var actionTmp = action;
+                        if(action=="pass")
+                            actionTmp="ALLOW";
+                         else if(action=="block"){
+                         	actionTmp="DROP";
+                         }
 						if(filterLocationSrcAll.length > 0 && filterLocationSrcAll.includes(item.from)){
 							
 						} else if(filterLocationDesAll.length > 0 && filterLocationDesAll.includes(item.to)){
@@ -296,9 +302,9 @@ $(document).ready(function(){
 							return;
 						if(filterDstport.length > 0 && !filterDstport.includes(dstport))
 							return;
-						if(filterProtocol.length > 0 && !filterProtocol.includes(protocol))
+						if(filterProtocol.length > 0 && !filterProtocol.includes(protocol.toLowerCase()))
 							return;
-						if(filterAction.length > 0 && !filterAction.includes(action))
+						if(filterAction.length > 0 && !filterAction.includes(actionTmp))
 							return;
 							
 						arrayData.push(idItem);
