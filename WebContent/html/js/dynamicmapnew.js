@@ -286,7 +286,13 @@ $(document).ready(function(){
 					
 					var countItem = 0;
 					data.forEach(function(item){
-						 var actionTmp = action;
+						var idItem = item.from+"-"+item.to;
+						var srcport = item.src_port;
+						var dstport = item.dst_port;
+						var protocol = item.protocol;
+						var action = item.action;
+                        
+                        var actionTmp = action;
                         if(action=="pass")
                             actionTmp="ALLOW";
                          else if(action=="block"){
