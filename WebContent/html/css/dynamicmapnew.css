@@ -134,7 +134,7 @@ to {
 	top: 0px;
 	max-width: 100%;
 	height: auto;
-	z-index:9999;
+	z-index:1;
 }
 
 #svg-container img { /* <= optional, for responsiveness */
