@@ -129,7 +129,16 @@ $(document).ready(function(){
 			filterLocationDesAll.push(valueTo);
 		} else if(valueTo=="all"){
 			filterLocationSrcAll.push(valueFrom);
+		} else if(valueFrom=="map-left" && valueTo!="map-left" && valueTo!="map-right"){
+			filterLocationDesForMapLeft.push(valueTo);
+		} else if(valueFrom=="map-right" && valueTo!="map-left" && valueTo!="map-right"){
+			filterLocationDesForMapRight.push(valueTo);
+		} else if(valueTo=="map-left" && valueFrom!="map-left" && valueFrom!="map-right"){
+			filterLocationSrcForMapLeft.push(valueFrom);
+		} else if(valueTo=="map-right" && valueFrom!="map-left" && valueFrom!="map-right"){
+			filterLocationSrcForMapRight.push(valueFrom);
 		}
+		
 		var strDisplay = "<div class='row location-filter-result'>"
 			+"<hr>"
 			+"<div class='col-md-5'><span>"+captionFrom+"</span></div>"
@@ -165,6 +174,14 @@ $(document).ready(function(){
 			filterLocationDesAll.splice(filterLocationDesAll.indexOf(to), 1);
 		} else if(to=="all"){
 			filterLocationSrcAll.splice(filterLocationSrcAll.indexOf(to), 1);
+		} else if(from=="map-left" && to!="map-left" && to!="map-right"){
+			filterLocationDesForMapLeft.splice(filterLocationDesForMapLeft.indexOf(to), 1);
+		} else if(from=="map-right" && to!="map-left" && to!="map-right"){
+			filterLocationDesForMapRight.splice(filterLocationDesForMapRight.indexOf(to), 1);
+		} else if(to=="map-left" && from!="map-left" && from!="map-right"){
+			filterLocationSrcForMapLeft.splice(filterLocationSrcForMapLeft.indexOf(from), 1);
+		} else if(to=="map-right" && from!="map-left" && from!="map-right"){
+			filterLocationSrcForMapRight.splice(filterLocationSrcForMapRight.indexOf(from), 1);
 		}
 
 		$(this).closest(".location-filter-result").remove();

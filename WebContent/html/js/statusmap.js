@@ -39,7 +39,7 @@ $(document).ready(function(){
 							status = "notok";
 						}
 
-						strItem+="<div style='transform:translate("+item.x+"px, "+item.y+"px)' host-id='"+item.idHost+"' title='"+item.displayName+"' status='"+status+"' class='drag-item'><i class='fa fa-"+icon+"'></i></div>";
+						strItem+="<div style='transform:translate("+item.x+"px, "+item.y+"px)' host-id='"+item.idHost+"' title='"+item.idHost+"' status='"+status+"' class='drag-item'><i class='fa fa-"+icon+"'></i></div>";
 					});
 
 					strSlideContent+="<div class='swiper-slide'>"

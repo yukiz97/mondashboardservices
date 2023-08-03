@@ -8,6 +8,13 @@ var filterPriority = [];
 var filterLocation = [];
 var filterLocationSrcAll = [];
 var filterLocationDesAll = [];
+var filterLocationDesForMapLeft = [];
+var filterLocationDesForMapRight = [];
+var filterLocationSrcForMapLeft = [];
+var filterLocationSrcForMapRight = [];
+
+var arrayCodeMapLeft = [];
+var arrayCodeMapRight = [];
 
 var strListItemMapLeft = "";
 var strListItemMapRight = "";
@@ -195,14 +202,16 @@ $(document).ready(function(){
 				mapLeft.items.forEach(function(item){
 					circleString += "<circle code='"+item.code+"' name='"+item.name+"' fill='#ED1C24' cx='"+item.x+"' cy='"+item.y+"' submap='"+item.mapLevel2Id+"' side='left' r='1'/>";
 					strListItemMapLeft += "<option value='"+item.code+"'>"+item.name+"</option>";
+					arrayCodeMapLeft.push(item.code);
 				});
 				mapRight.items.forEach(function(item){
 					circleString += "<circle code='"+item.code+"' name='"+item.name+"' fill='#ED1C24' cx='"+(item.x+950)+"' cy='"+item.y+"' submap='"+item.mapLevel2Id+"' side='right' r='1'/>";
 					strListItemMapRight += "<option value='"+item.code+"'>"+item.name+"</option>";
+					arrayCodeMapRight.push(item.code);
 				});
 				
-				$("#filter-location div[combobox='left'] select").append("<option value='all'>Tất cả</option><optgroup label='"+mapLeft.mapName+"'>"+strListItemMapLeft+"<optgroup><optgroup label='"+mapRight.mapName+"'>"+strListItemMapRight+"<optgroup>");
-				$("#filter-location div[combobox='right'] select").append("<option value='all'>Tất cả</option><optgroup label='"+mapRight.mapName+"'>"+strListItemMapRight+"<optgroup><optgroup label='"+mapLeft.mapName+"'>"+strListItemMapLeft+"<optgroup>");
+				$("#filter-location div[combobox='left'] select").append("<option value='all'>Tất cả</option><option value='map-left'>"+mapLeft.mapName+"</option>"+strListItemMapLeft+"<option value='map-right'>"+mapRight.mapName+"</option>"+strListItemMapRight);
+				$("#filter-location div[combobox='right'] select").append("<option value='all'>Tất cả</option><option value='map-right'>"+mapRight.mapName+"</option>"+strListItemMapRight+"<option value='map-left'>"+mapLeft.mapName+"</option>>"+strListItemMapLeft);
 				
 				$("#svg-container").append(svgTag+gradientAllow+gradientDeny+gradientOther+gradientHigh+gradientMedium+gradientLow+circleString+"</svg>");
 			
@@ -285,6 +294,7 @@ $(document).ready(function(){
 					arrayDetailA = [];
 					
 					var countItem = 0;
+					console.log(filterLocationSrcAll);
 					data.forEach(function(item){
 						var idItem = item.from+"-"+item.to;
 						var srcport = item.src_port;
@@ -298,12 +308,46 @@ $(document).ready(function(){
                          else if(action=="block"){
                          	actionTmp="DROP";
                          }
-						if(filterLocationSrcAll.length > 0 && filterLocationSrcAll.includes(item.from)){
+						if(filterLocationSrcAll.length > 0){
+							if(
+								(filterLocationSrcAll.includes("map-left") && arrayCodeMapLeft.includes(item.from))
+								|| (filterLocationSrcAll.includes("map-right") && arrayCodeMapRight.includes(item.from))
+								|| filterLocationSrcAll.includes(item.from)){
+								
+							}
+						} else if(filterLocationDesAll.length > 0){
+							if(
+								(filterLocationDesAll.includes("map-left") && arrayCodeMapLeft.includes(item.to))
+								(filterLocationDesAll.includes("map-right") && arrayCodeMapRight.includes(item.to))
+								|| filterLocationDesAll.includes(item.to)
+								){
+									
+							}
+						} else if(filterLocationDesForMapLeft.length > 0 && arrayCodeMapLeft.includes(item.from) && filterLocationDesForMapLeft.includes(item.to)){
 							
-						} else if(filterLocationDesAll.length > 0 && filterLocationDesAll.includes(item.to)){
+						} else if(filterLocationDesForMapRight.length > 0 && arrayCodeMapRight.includes(item.from) && filterLocationDesForMapRight.includes(item.to)){
 							
-						} else if(filterLocation.length > 0 && !filterLocation.includes(idItem))
-							return;
+						} else if(filterLocationSrcForMapLeft.length > 0 && arrayCodeMapLeft.includes(item.to) && filterLocationSrcForMapLeft.includes(item.from)){
+							
+						} else if(filterLocationSrcForMapRight.length > 0 && arrayCodeMapRight.includes(item.to) && filterLocationSrcForMapRight.includes(item.from)){
+							
+						} else if(filterLocation.length > 0) {
+							if(filterLocation.includes("map-left-map-right") || filterLocation.includes("map-right-map-left") || filterLocation.includes("map-left-map-left") || filterLocation.includes("map-right-map-right")){
+								console.log(filterLocation.includes("map-left-map-left"));
+								if(
+									(filterLocation.includes("map-left-map-right") && arrayCodeMapLeft.includes(item.from) && arrayCodeMapRight.includes(item.to)) 
+									|| (filterLocation.includes("map-right-map-left") && arrayCodeMapLeft.includes(item.to) && arrayCodeMapRight.includes(item.from))
+									|| (filterLocation.includes("map-left-map-left") && arrayCodeMapLeft.includes(item.from) && arrayCodeMapLeft.includes(item.to))
+									|| (filterLocation.includes("map-right-map-right") && arrayCodeMapRight.includes(item.from) && arrayCodeMapRight.includes(item.to))
+									){
+									
+								} else {
+									return;
+								}
+							} else if(!filterLocation.includes(idItem))
+								return;
+						}
+							
 						if(filterSrcport.length > 0 && !filterSrcport.includes(srcport))
 							return;
 						if(filterDstport.length > 0 && !filterDstport.includes(dstport))
