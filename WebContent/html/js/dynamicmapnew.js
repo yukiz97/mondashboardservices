@@ -201,12 +201,12 @@ $(document).ready(function(){
 				var circleString = "";
 				mapLeft.items.forEach(function(item){
 					circleString += "<circle code='"+item.code+"' name='"+item.name+"' fill='#ED1C24' cx='"+item.x+"' cy='"+item.y+"' submap='"+item.mapLevel2Id+"' side='left' r='1'/>";
-					strListItemMapLeft += "<option value='"+item.code+"'>"+item.name+"</option>";
+					strListItemMapLeft += "<option value='"+item.code+"'>--"+item.name+"</option>";
 					arrayCodeMapLeft.push(item.code);
 				});
 				mapRight.items.forEach(function(item){
 					circleString += "<circle code='"+item.code+"' name='"+item.name+"' fill='#ED1C24' cx='"+(item.x+950)+"' cy='"+item.y+"' submap='"+item.mapLevel2Id+"' side='right' r='1'/>";
-					strListItemMapRight += "<option value='"+item.code+"'>"+item.name+"</option>";
+					strListItemMapRight += "<option value='"+item.code+"'>--"+item.name+"</option>";
 					arrayCodeMapRight.push(item.code);
 				});
 				
