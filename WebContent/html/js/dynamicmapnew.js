@@ -237,6 +237,8 @@ $(document).ready(function(){
 						
 						$("#btn-replay").trigger("click");
 					}
+				}else {
+					$("#btn-realtime").trigger("click");
 				}
 			},
 			error: function(){
@@ -645,6 +647,28 @@ $(document).ready(function(){
 		indexDetailC = i;
 	}
 	
+	$("#expand-detail").on("click",function(){
+		var status = $(this).attr("status");
+		if(status=="unexpand"){
+			$(this).children("i").removeClass("fa-arrows-alt");
+			$(this).children("i").addClass("fa-minus");
+			
+			$(this).attr("status","expanded");
+			$(this).attr("title","thu nhỏ chi tiết");
+			$("#svg-container").hide();
+			resizeDetailPanel();
+		} else if(status == "expanded"){
+			$(this).children("i").removeClass("fa-minus");
+			$(this).children("i").addClass("fa-arrows-alt");
+			
+			$(this).attr("status","unexpand");
+			$(this).attr("title","Phóng to chi tiết");
+			$("#svg-container").show();
+			resizeDetailPanel();
+		}
+		
+	});
+	
 	$(".btn-detail-play").on("click",function(){
 		var status = $(this).attr("status");
 		if(status=="play"){
@@ -1017,8 +1041,8 @@ $(document).ready(function(){
 
 		var heightFormSearch = $("#form-select-date").outerHeight();
 
-		var heightSVG = $("#svg-container").height();
-
+		var heightSVG = !$("#svg-container").is(":hidden") ?  $("#svg-container").height() : 0;
+		
 		var heightHeader = $(".detail-header").height();
 
 		var heightDetail = heightFull - (heightFormSearch + heightSVG + heightHeader + 20);
