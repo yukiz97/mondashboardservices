@@ -206,7 +206,9 @@ public class camservice {
 			MongoCollection<Document> collection = mongoDatabase.getCollection("connectivities");
 			FindIterable<Document> result = null;
 			result = collection.find(and(gte("DATE",sdfDatetime.parse(fromDate)),lte("DATE",sdfDatetime.parse(toDate))));
+			int count = 0;
 			for (Document document : result) {
+				count++;
 				String srcIp = document.getString("src_ip");
 				String dstIp = document.getString("dst_ip");
 
@@ -232,7 +234,15 @@ public class camservice {
 						mapIpCode.put(dstIp, modelDst);
 				}
 
-				if(modelSrc==null || modelDst==null)
+				if(modelSrc==null && modelDst!=null) {
+					modelSrc = new GeneralDualStringBean();
+					modelSrc.setName("unknown");
+					modelSrc.setValue("Không xác định");
+				} else if(modelSrc!=null && modelDst==null) {
+					modelDst = new GeneralDualStringBean();
+					modelDst.setName("unknown");
+					modelDst.setValue("Không xác định");
+				} else if(modelSrc==null && modelDst==null)
 					continue;
 
 				BanCheoCheoModel model=new BanCheoCheoModel();
@@ -252,6 +262,7 @@ public class camservice {
 				model.setId(model.getFrom()+"_"+model.getTo());
 				lst.add(model);
 			}
+			System.out.println(lst.size()+" items out of "+count);
 			mongoClient.close();
 		} catch (Exception e) {
 			e.printStackTrace();

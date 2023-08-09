@@ -199,6 +199,7 @@ $(document).ready(function(){
 				$("#svg-container #img-right").attr("src","data:image/svg+xml;charset=utf-8;base64,"+mapRight.background);
 				
 				var circleString = "";
+				var optionUknown = "<option value='unknown'>--Không xác định</option>";
 				mapLeft.items.forEach(function(item){
 					circleString += "<circle code='"+item.code+"' name='"+item.name+"' fill='#ED1C24' cx='"+item.x+"' cy='"+item.y+"' submap='"+item.mapLevel2Id+"' side='left' r='1'/>";
 					strListItemMapLeft += "<option value='"+item.code+"'>--"+item.name+"</option>";
@@ -210,10 +211,13 @@ $(document).ready(function(){
 					arrayCodeMapRight.push(item.code);
 				});
 				
-				$("#filter-location div[combobox='left'] select").append("<option value='all'>Tất cả</option><option value='map-left'>"+mapLeft.mapName+"</option>"+strListItemMapLeft+"<option value='map-right'>"+mapRight.mapName+"</option>"+strListItemMapRight);
-				$("#filter-location div[combobox='right'] select").append("<option value='all'>Tất cả</option><option value='map-right'>"+mapRight.mapName+"</option>"+strListItemMapRight+"<option value='map-left'>"+mapLeft.mapName+"</option>>"+strListItemMapLeft);
+				var uknCircle = "<circle code='unknown' name='Không xác định' fill='#ED1C24' cx='1000' cy='400' submap='-1' r='1'/>";
+
 				
-				$("#svg-container").append(svgTag+gradientAllow+gradientDeny+gradientOther+gradientHigh+gradientMedium+gradientLow+circleString+"</svg>");
+				$("#filter-location div[combobox='left'] select").append("<option value='all'>Tất cả</option><option value='map-left'>"+mapLeft.mapName+"</option>"+strListItemMapLeft+"<option value='map-right'>"+mapRight.mapName+"</option>"+strListItemMapRight+optionUknown);
+				$("#filter-location div[combobox='right'] select").append("<option value='all'>Tất cả</option><option value='map-right'>"+mapRight.mapName+"</option>"+strListItemMapRight+"<option value='map-left'>"+mapLeft.mapName+"</option>>"+strListItemMapLeft+optionUknown);
+				
+				$("#svg-container").append(svgTag+gradientAllow+gradientDeny+gradientOther+gradientHigh+gradientMedium+gradientLow+circleString+uknCircle+"</svg>");
 			
 				leftCode = mapLeft.code;
 				rightCode = mapRight.code;
@@ -287,8 +291,6 @@ $(document).ready(function(){
 			crossDomain: true,
 			dataType: 'json',
 			success: function(data){
-				console.log(filterLocationSrcAll);
-				console.log(filterLocationDesAll);
 				if(typeData=="connectivity")
 				{
 					clearInterval(intervalDetailA);
@@ -296,35 +298,40 @@ $(document).ready(function(){
 					arrayDetailA = [];
 					
 					var countItem = 0;
-					console.log(filterLocationSrcAll);
 					data.forEach(function(item){
-						var idItem = item.from+"-"+item.to;
+						var idSource = item.from;
+						var idDes = item.to;
+						var idItem;
+						if(!$("circle[code='"+idSource+"']").length && $("circle[code='"+idDes+"']").length)
+						{
+							idItem = "unknown-"+item.to;
+						} else if($("circle[code='"+idSource+"']").length && !$("circle[code='"+idDes+"']").length){
+							idItem = item.from+"-unknown";
+						} else {
+							idItem = item.from+"-"+item.to;
+						}
 						var srcport = item.src_port;
 						var dstport = item.dst_port;
 						var protocol = item.protocol;
 						var action = item.action;
                         
-                        var actionTmp = action;
-                        if(action=="pass")
-                            actionTmp="ALLOW";
-                         else if(action=="block"){
-                         	actionTmp="DROP";
-                         }
 						if(filterLocationSrcAll.length > 0){
 							if(
 								(filterLocationSrcAll.includes("map-left") && arrayCodeMapLeft.includes(item.from))
 								|| (filterLocationSrcAll.includes("map-right") && arrayCodeMapRight.includes(item.from))
 								|| filterLocationSrcAll.includes(item.from)){
 								
-							}
+							} else
+								return;
 						} else if(filterLocationDesAll.length > 0){
 							if(
 								(filterLocationDesAll.includes("map-left") && arrayCodeMapLeft.includes(item.to))
-								(filterLocationDesAll.includes("map-right") && arrayCodeMapRight.includes(item.to))
+								|| (filterLocationDesAll.includes("map-right") && arrayCodeMapRight.includes(item.to))
 								|| filterLocationDesAll.includes(item.to)
 								){
 									
-							}
+							} else
+								return;
 						} else if(filterLocationDesForMapLeft.length > 0 && arrayCodeMapLeft.includes(item.from) && filterLocationDesForMapLeft.includes(item.to)){
 							
 						} else if(filterLocationDesForMapRight.length > 0 && arrayCodeMapRight.includes(item.from) && filterLocationDesForMapRight.includes(item.to)){
@@ -356,7 +363,7 @@ $(document).ready(function(){
 							return;
 						if(filterProtocol.length > 0 && !filterProtocol.includes(protocol.toLowerCase()))
 							return;
-						if(filterAction.length > 0 && !filterAction.includes(actionTmp))
+						if(filterAction.length > 0 && !filterAction.includes(action))
 							return;
 							
 						arrayData.push(idItem);
@@ -724,9 +731,13 @@ $(document).ready(function(){
 	
 	function appendDisplay(idSource,idDes,action)
 	{
-		if(!$("circle[code='"+idSource+"']").length || !$("circle[code='"+idDes+"']").length)
+		if(!$("circle[code='"+idSource+"']").length && $("circle[code='"+idDes+"']").length)
 		{
-			//console.log('id source or id des doesn\'t exits -- '+idSource+" -- "+idDes);
+			idSource = "unknown";
+		} else if($("circle[code='"+idSource+"']").length && !$("circle[code='"+idDes+"']").length){
+			idDes = "unknown";
+		} else if(!$("circle[code='"+idSource+"']").length && !$("circle[code='"+idDes+"']").length){
+			console.log("NOT EXITST "+idSource+idDes);
 			return;
 		}
 
@@ -881,10 +892,15 @@ $(document).ready(function(){
 	}
 	
 	function createDetailRow(idSource,nameSource,ipSource,idDes,nameDes,ipDes,action,date,srcport,dstport,protocol,sourceIp){
-		if(!$("circle[code='"+idSource+"']").length || !$("circle[code='"+idDes+"']").length)
+		if(!$("circle[code='"+idSource+"']").length && $("circle[code='"+idDes+"']").length)
 		{
-			//console.log('id source or id des doesn\'t exits -- '+idSource+" -- "+idDes);
-			return "";
+			idSource = "unknown";
+			nameSource = "Không xác định";
+		} else if($("circle[code='"+idSource+"']").length && !$("circle[code='"+idDes+"']").length){
+			idDes = "unknown";
+			nameDes = "Không xác định";
+		} else if(!$("circle[code='"+idSource+"']").length && !$("circle[code='"+idDes+"']").length){
+			return;
 		}
 
 		if(idSource==idDes)
@@ -917,6 +933,7 @@ $(document).ready(function(){
 		"<div class='action'><span class='filter-row' filter-id='action' value-filter='"+action+"' action='"+action+"'>"+action+"</span></div>"+
 		"<div class='date'>"+formattedTime+"</div>"+
 		"</div>";
+		
 		return rowString;
 	}
 	

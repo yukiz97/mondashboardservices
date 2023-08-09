@@ -225,12 +225,24 @@ $(document).ready(function(){
 			case 'protocol':
 			case 'action':
 			case 'priority':
-				$(".btn-filterchoose[filter='"+filterId+"'][value-filter='"+value+"']").trigger("click");
+				var active = $(".btn-filterchoose[filter='"+filterId+"'][value-filter='"+value+"']").attr("active");
+				if(active=="false"){
+					console.log("this is unactive");
+					$(".btn-filterchoose[filter='"+filterId+"'][value-filter='"+value+"']").trigger("click");
+				} else {
+					console.log("this is active");
+				}
+				//$(".btn-filterchoose[filter='"+filterId+"'][value-filter='"+value+"']").trigger("click");
 			break;
 		}
 		
 		if(realtime){
-			$("#btn-realtime").trigger("click");
+			if($("#btn-realtime").attr("status")=="play"){
+				$("#btn-realtime").trigger("click");
+			    $("#btn-realtime").trigger("click");
+			} else {
+				$("#btn-realtime").trigger("click");
+			}
 		} else {
 			$("#btn-replay").trigger("click");
 		}
