@@ -46,10 +46,14 @@ public class StatusMapServiceUtils {
 
 			while(rsMapItem.next())
 			{
+				
 				NagiosMapItemBean modelMapItem = new NagiosMapItemBean();
 
 				String hostName = rsMapItem.getString("IdItem");
-				
+				if(mapHost.get(hostName)==null)
+						continue;
+				System.out.println(hostName);
+				System.out.println(mapHost.get(hostName).getHostName());
 				int state = mapHost.get(hostName).getHostState();
 
 				modelMapItem.setIdHost(hostName);
@@ -64,7 +68,7 @@ public class StatusMapServiceUtils {
 				{
 					modelMapItem.setCurrentState(1);
 				}
-
+				modelMapItem.getListService().addAll(getAllServiceOfHost(modelMapItem.getIdHost(), mapServiceState));
 				modelMap.getListItem().add(modelMapItem);
 			}
 
@@ -95,6 +99,21 @@ public class StatusMapServiceUtils {
 		}
 		
 		return isIssue;
+	}
+	
+	public List<ServiceOfHostStateBean> getAllServiceOfHost(String hostId,Map<String, ServiceOfHostStateBean> mapServiceState) throws SQLException
+	{
+		List<ServiceOfHostStateBean> listService = new ArrayList<ServiceOfHostStateBean>();
+		for (Map.Entry<String, ServiceOfHostStateBean> entry : mapServiceState.entrySet()) {
+			String[] arrayKey = entry.getKey().split(Pattern.quote("/"));
+
+			if(arrayKey[1].equals(hostId))
+			{
+				listService.add(entry.getValue());
+			}
+		}
+		
+		return listService;
 	}
 
 	public NagiosMapBean returnMapBeanFromDB(ResultSet rs) throws Exception

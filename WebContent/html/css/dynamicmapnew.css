@@ -12,14 +12,16 @@ body {
 	stroke: url(#grad-other);
 }
 
-.path[action='ALLOW'], .path[action='pass'] {
+.path[action='ALLOW'], .path[action='pass'], .path[action='permitted'] {
 	stroke: url(#grad-allow);
 }
 
-.path[action='DROP'], .path[action='block'] {
+.path[action='DROP'], .path[action='block'], .path[action='denied'] {
 	stroke: url(#grad-deny);
 }
-
+.path[action='ALLOW'][whitelist='false'],.path[action='pass'][whitelist='false'],.path[action='permitted'][whitelist='false'] {
+	stroke: url(#grad-notwhitelist) !important;
+}
 .path[action='HIGH'] {
 	stroke: url(#grad-high);
 }
@@ -27,7 +29,6 @@ body {
 .path[action='MEDIUM'] {
 	stroke: url(#grad-medium);
 }
-
 .path[action='LOW'] {
 	stroke: url(#grad-low);
 }
@@ -54,19 +55,19 @@ to {
 	position: relative;
 }
 
-#type-map-name {
+/* #type-map-name {
 	position: absolute;
 	top: -17px;
 	left: calc(50% - 213px);
 	font-size: 25px;
-}
+} */
 
-#maps-name {
+/* #maps-name {
 	position: absolute;
 	top: 10px;
 	left: calc(50% - 65px);
 	font-size: 20px;
-}
+} */
 
 #mode-name {
 	position: absolute;
@@ -126,6 +127,11 @@ to {
 	color: black !important;
 }
 
+#btn-download {
+	background: #ffffff;
+	color: black !important;
+}
+
 #svg-container {
 	background-image: url("../images/bg.png");
 	position: relative;
@@ -133,6 +139,7 @@ to {
 	transition: transform 150ms ease-in-out;
 	top: 0px;
 	max-width: 100%;
+	width: 100%;
 	height: auto;
 	z-index:1;
 }
@@ -174,12 +181,18 @@ circle {
 	padding: 3px 1px;
 }
 
+.detail-block .detailrow[whitelist='false'] {
+	background: #e4d173b0;
+}
+.detail-block .detailrow[whitelist='true'] {
+	/* background: #4ea3bca3;
+ */}
 .detail-header {
 	position: relative;
 	width: 100%;
 	background: #326ea261;
 	color: #fff;
-	box-shadow: 0px 0px 3px 2px #68abca;
+	box-shadow: 0px -1px 3px 1px #68abca;
 	font-size: 12px;
 }
 
@@ -187,8 +200,9 @@ circle {
 	width: 100%;
 	background: #326ea261;
 	color: #fff;
-	box-shadow: 0px 0px 2px 2px #68abca;
-	margin-top: 7px;
+	box-shadow: 0px 2px 2px 1px #68abca;
+	font-size: 12px;
+/* 	margin-top: 7px; */
 }
 
 .detail-header .detailrow {
@@ -213,7 +227,7 @@ circle {
 }
 
 #detail-a .src {
-	width: 20%;
+	width: 24%;
 	padding-left: 5px;
 }
 
@@ -222,7 +236,7 @@ circle {
 }
 
 #detail-a .dst {
-	width: 20%;
+	width: 24%;
 }
 
 #detail-a .dst_port {
@@ -295,11 +309,11 @@ circle {
 }
 
 #detail-c .src {
-	width: 13%;
+	width: 14%;
 }
 
 #detail-c .dst {
-	width: 13%;
+	width: 14%;
 }
 
 #detail-c .detail-header .dst {
@@ -329,19 +343,19 @@ circle {
 	text-align: center;
 	font-weight: bold;
 	border-radius: 5px;
-	box-shadow: 1px 1px 2px 2px #212121;
+	box-shadow: 1px 1px 2px 2px #35353575;
 }
 
 #detail-a .action span {
 	width: 60% !important;
 }
 
-#detail-a .action span[action='ALLOW'], #detail-a .action span[action='pass']
+#detail-a .action span[action='ALLOW'], #detail-a .action span[action='pass'], #detail-a .action span[action='permitted']
 	{
 	background: #25b325;
 }
 
-#detail-a .action span[action='DROP'], #detail-a .action span[action='block']
+#detail-a .action span[action='DROP'], #detail-a .action span[action='block'], #detail-a .action span[action='denied']
 	{
 	background: #c33835;
 }
@@ -456,6 +470,11 @@ button:focus {
 	margin: 10px 0;
 }
 
+#modal-filter label {
+	min-width:90px;
+}
+
+
 .filter-type-display {
 	display: inline-block;
 	margin: 0px 3px 3px 2px;
@@ -502,7 +521,7 @@ button:focus {
 }
 
 .btn-filterchoose {
-	width: 90px;
+	width: 110px;
 }
 
 .btn {
@@ -548,4 +567,29 @@ button:focus {
 }
 .detail-function button i {
 	color: #ccc;
+}
+
+.loader {
+ 	border: 16px solid #f3f3f330;
+    border-radius: 50%;
+    border-top: 16px solid #0972c5;
+    border-bottom: 16px solid #0972c5;
+    width: 25px;
+    height: 25px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: 30px;
+    right: 5px;
+    z-index: 99;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

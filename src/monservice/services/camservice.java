@@ -7,11 +7,9 @@ import static com.mongodb.client.model.Filters.lte;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -27,15 +25,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import monservice.models.BanCheoCheoModel;
-import monservice.models.GeneralDualStringBean;
-import monservice.models.RangeIPModel;
-import monservice.models.StartDateEndDateModel;
-import monservice.models.WindowLogModel;
-import monservice.utils.CheckIpInIpRange;
-import monservice.utils.DynamicMapServiceUtils;
-import monservice.utils.MonConfigPropertiesUtil;
-
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.commons.validator.routines.InetAddressValidator;
 import org.bson.Document;
@@ -49,6 +38,14 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+
+import monservice.models.BanCheoCheoModel;
+import monservice.models.GeneralDualStringBean;
+import monservice.models.RangeIPModel;
+import monservice.utils.CheckIpInIpRange;
+import monservice.utils.ConfigSourceIPsUtil;
+import monservice.utils.DynamicMapServiceUtils;
+import monservice.utils.MonConfigPropertiesUtil;
 
 @Path("/camservice")
 public class camservice {
@@ -100,21 +97,23 @@ public class camservice {
 			MongoDatabase mongoDatabase=mongoClient.getDatabase("syslog");
 			FindIterable<Document> result = null;
 			result = mongoDatabase.getCollection("snort").find(and(gte("DATE",sdfDatetime.parse(fromDate)),lte("DATE",sdfDatetime.parse(toDate))));
+			List<String> listDeclaredRange = DynamicMapServiceUtils.getAllRangeIpDeclare();
 			for (Document document : result) {
 				String srcIp = document.getString("src_ip");
 				String dstIp = document.getString("dst_ip");
-
+				
 				GeneralDualStringBean modelSrc = null;
 				GeneralDualStringBean modelDst = null;
 
-
-				if(mapIpCode.containsKey(srcIp)) 
+				if(mapIpCode.containsKey(srcIp))
 					modelSrc = mapIpCode.get(srcIp);
-				else {
+				else
+				{
 					modelSrc = returnCodeOfIpGeneral(srcIp, finalLeftCode, finalRightCode);
 
-					if(modelSrc!=null) mapIpCode.put(srcIp, modelSrc); }
-
+					if(modelSrc!=null)
+						mapIpCode.put(srcIp, modelSrc);
+				}
 				if(mapIpCode.containsKey(dstIp))
 					modelDst = mapIpCode.get(dstIp);
 				else
@@ -124,9 +123,29 @@ public class camservice {
 					if(modelDst!=null)
 						mapIpCode.put(dstIp, modelDst);
 				}
-
-				if(modelSrc==null || modelDst==null)
+				
+				if(modelSrc==null && modelDst==null)
 					continue;
+
+				if(modelSrc!=null && modelDst==null) {
+					if(!checkIpInListRange(dstIp, listDeclaredRange)) {
+						modelDst = new GeneralDualStringBean();
+						modelDst.setName("unknown");
+						modelDst.setValue("Không xác định");
+					} else {
+						continue;
+					}
+				} 
+				
+				if(modelSrc==null && modelDst!=null) {
+					if(!checkIpInListRange(srcIp, listDeclaredRange)) {
+						modelSrc = new GeneralDualStringBean();
+						modelSrc.setName("unknown"); 
+						modelSrc.setValue("Không xác định");
+					} else {
+						continue;
+					}
+				}
 
 				BanCheoCheoModel model=new BanCheoCheoModel();
 				model.setSrc_port(document.getString("src_port"));
@@ -163,7 +182,7 @@ public class camservice {
 	@Path("/getdata_connectivity")
 	@POST
 	@Produces({MediaType.APPLICATION_JSON })
-	public Response getDataConnectivitiesURLPARAM(@QueryParam("fromDate")String fromDate,@QueryParam("toDate")String toDate,@QueryParam("leftCode")String leftCode,@QueryParam("rightCode")String rightCode) {
+	public Response getDataConnectivitiesURLPARAM(@QueryParam("fromDate")String fromDate,@QueryParam("toDate")String toDate,@QueryParam("leftCode")String leftCode,@QueryParam("rightCode")String rightCode,@QueryParam("source")String source) {
 		List<BanCheoCheoModel> lst = new ArrayList<BanCheoCheoModel>();
 		try {
 			String[] leftArray = leftCode.split(Pattern.quote(" "));
@@ -174,7 +193,23 @@ public class camservice {
 
 			String finalRightCode = rightArray[0];
 			String finalRightId = rightArray[1];
-
+			
+			boolean sourceFirewall = false;
+			boolean sourceAgent = false;
+			
+			List<String> listFirewall = new ArrayList<String>();
+			System.out.println(source);
+			if(source!=null) {
+				listFirewall.addAll(ConfigSourceIPsUtil.getListIPs());
+				for(String sourceData : Arrays.asList(source.split(","))){
+					if(sourceData.equals("firewall-in") || sourceData.equals("firewall-out")) {
+						sourceFirewall = true;
+					} else if(sourceData.equals("agent")) {
+						sourceAgent = true;
+					}
+				}
+			}
+			
 			if(finalLeftCode.equals("level-1"))
 			{
 				mapRangeIpLv2.putAll(DynamicMapServiceUtils.getAllRangeIpOfMapLevel1(Integer.parseInt(finalLeftId)));
@@ -205,13 +240,30 @@ public class camservice {
 			MongoDatabase mongoDatabase=mongoClient.getDatabase("syslog");
 			MongoCollection<Document> collection = mongoDatabase.getCollection("connectivities");
 			FindIterable<Document> result = null;
+			Document match=new Document();
+			match.append("DATE", new Document().append("$gte", fromDate).append("$lte", toDate));
 			result = collection.find(and(gte("DATE",sdfDatetime.parse(fromDate)),lte("DATE",sdfDatetime.parse(toDate))));
 			int count = 0;
+			List<String> listDeclaredRange = DynamicMapServiceUtils.getAllRangeIpDeclare();
 			for (Document document : result) {
 				count++;
+				String sourceIPData = document.getString("SOURCEIP");
+				
+				if(sourceFirewall && !sourceAgent) {
+					if(!listFirewall.contains(sourceIPData)) {
+						continue;
+					}
+				}
+				
+				if(sourceAgent && !sourceFirewall) {
+					if(listFirewall.contains(sourceIPData))
+						continue;
+				}
+				
 				String srcIp = document.getString("src_ip");
 				String dstIp = document.getString("dst_ip");
-
+				
+				
 				GeneralDualStringBean modelSrc = null;
 				GeneralDualStringBean modelDst = null;
 
@@ -233,18 +285,30 @@ public class camservice {
 					if(modelDst!=null)
 						mapIpCode.put(dstIp, modelDst);
 				}
-
-				if(modelSrc==null && modelDst!=null) {
-					modelSrc = new GeneralDualStringBean();
-					modelSrc.setName("unknown");
-					modelSrc.setValue("Không xác định");
-				} else if(modelSrc!=null && modelDst==null) {
-					modelDst = new GeneralDualStringBean();
-					modelDst.setName("unknown");
-					modelDst.setValue("Không xác định");
-				} else if(modelSrc==null && modelDst==null)
+				
+				if(modelSrc==null && modelDst==null)
 					continue;
 
+				if(modelSrc!=null && modelDst==null) {
+					if(!checkIpInListRange(dstIp, listDeclaredRange)) {
+						modelDst = new GeneralDualStringBean();
+						modelDst.setName("unknown");
+						modelDst.setValue("Không xác định");
+					} else {
+						continue;
+					}
+				} 
+				
+				if(modelSrc==null && modelDst!=null) {
+					if(!checkIpInListRange(srcIp, listDeclaredRange)) {
+						modelSrc = new GeneralDualStringBean();
+						modelSrc.setName("unknown"); 
+						modelSrc.setValue("Không xác định");
+					} else {
+						continue;
+					}
+				}
+				
 				BanCheoCheoModel model=new BanCheoCheoModel();
 				model.setSrc_ip(srcIp);
 				model.setSrc_port(document.getString("src_port"));
@@ -428,6 +492,27 @@ public class camservice {
 		}
 
 		return model;
+	}
+	
+	private boolean checkIpInListRange(String ip,List<String> listRange) {
+		for(String range : listRange) {
+			
+			CheckIpInIpRange checkIp = new CheckIpInIpRange(range);
+			
+//			if(range.equals("10.30.0.0/22")) {
+//				System.out.println("okllalallalsadfasdfasdfsadfasdfsadfsdafsadfsfdall-----2");
+//			}
+//			if(ip.equals("10.30.0.239") && range.equals("10.30.0.0/22")) {
+//				System.out.println("okllalallalsadfasdfasdfsadfasdfsadfsdafsadfsfdall-----3");
+//				System.out.println(checkIp.matches(ip));
+//			}
+			if(checkIp.matches(ip)) {
+				//System.out.println(ip+"---"+range);
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	private GeneralDualStringBean test(Map<String, RangeIPModel> map,String ip,String codeParent)

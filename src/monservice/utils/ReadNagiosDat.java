@@ -5,9 +5,11 @@ import java.io.File;
 import java.io.FileReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.SystemUtils;
 
@@ -191,6 +193,22 @@ public class ReadNagiosDat {
 					else if(leftString.equals("service_description"))
 					{
 						serviceModel.setServiceName(rightString);
+					} 
+					else if(leftString.equals("last_check"))
+					{
+						serviceModel.setLastCheck(sdfDatetime.format(new Date(TimeUnit.SECONDS.toMillis(Integer.parseInt(rightString)))));
+					}
+					else if(leftString.equals("current_attempt"))
+					{
+						serviceModel.setCurrentAttempt(Integer.parseInt(rightString));
+					}
+					else if(leftString.equals("max_attempts"))
+					{
+						serviceModel.setMaxAttempt(Integer.parseInt(rightString));
+					}
+					else if(leftString.equals("plugin_output"))
+					{
+						serviceModel.setOutput(rightString);
 					}
 				}
 

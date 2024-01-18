@@ -31,11 +31,15 @@
 	left: 5px;
 	background: #ffffff;
 	padding: 2px 3px;
-	box-shadow: 1px 1px 1px 1px #a7a7a7;
+	box-shadow: 0px 0px 1px 1px #a7a7a794;
 	border-radius: 50%;
 	cursor: pointer;
 }
 
+.drag-item[status="assumeok"]
+{
+	border: 3px solid #337ab7;
+}
 .drag-item[status="ok"]
 {
 	border: 3px solid #44b744;
@@ -43,7 +47,7 @@
 .drag-item[status="notok"]
 {
 	border: 3px solid #ea5c5c;
-	animation: ripple 3s linear infinite;
+	animation: ripple 2s linear infinite;
 }
 
 .drag-item i{
@@ -60,6 +64,19 @@
     text-align: center;
 }
 
+.drag-item span{
+    display: block;
+    margin-top: 17px;
+    margin-left: -3px;
+    font-size: 8px;
+    min-width: 100px;
+}
+.drag-item[status="assumeok"] i
+{
+	background: #337ab7;
+	/* font-size: 12px;
+	padding-left: 2px; */
+}
 .drag-item[status="ok"] i
 {
 	background: #44b744;
@@ -72,30 +89,24 @@
 	background: #ea5c5c;
 }
 
+.drag-item::before,
+.drag-item::after {
+  grid-area: 1/1;
+  border-radius: 50%;
+  animation: inherit;
+  animation-delay: 1s;
+}
+
+.drag-item::after {
+  animation-delay: 2s;
+}
+
 @keyframes ripple {
 	0% {
-		box-shadow: 0 0 0 0 #ff353521,
-		0 0 0 0.25em #ff353521,
-		0 0 0 0.5em #ff353521,
-		0 0 0 0.75em #ff353521;
-	}
-	80% {
-		box-shadow: 0 0 0 1em #ff353521,
-		0 0 0 1.5em #ff353521,
-		0 0 0 2em #ff353521,
-		0 0 0 2.5em #ff353521;
-	}
-	90% {
-		box-shadow: 0 0 0 1em #ff353514,
-		0 0 0 1.5em #ff353514,
-		0 0 0 2em #ff353514,
-		0 0 0 2.5em #ff353514;
+   	 box-shadow: 0 0 0 0.7rem rgb(217 102 102 / 20%);
 	}
 	100% {
-		box-shadow: 0 0 0 1em #ffffff21,
-		0 0 0 1.5em #ffffff21,
-		0 0 0 2em #ffffff21,
-		0 0 0 2.5em #ffffff21;
+	    box-shadow: 0 0 0 2rem rgb(195 30 30 / 0%);
 	}
 }
 

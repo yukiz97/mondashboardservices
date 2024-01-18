@@ -1,10 +1,14 @@
 package monservice.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class NagiosMapItemBean {
 	String idHost;
 	int x;
 	int y;
 	int currentState;
+	List<ServiceOfHostStateBean> listService = new ArrayList<ServiceOfHostStateBean>();
 	
 	public int getX() {
 		return x;
@@ -29,5 +33,11 @@ public class NagiosMapItemBean {
 	}
 	public void setIdHost(String idHost) {
 		this.idHost = idHost;
+	}
+	public List<ServiceOfHostStateBean> getListService() {
+		return listService;
+	}
+	public void setListService(List<ServiceOfHostStateBean> listService) {
+		this.listService = listService;
 	}
 }

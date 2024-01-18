@@ -45,9 +45,12 @@
 			data-target="#modal-filter">
 			<i class='fa fa-search'></i>
 		</button>
+		<button id="btn-download" title="Tải về">
+			<i class='fa fa-download'></i>
+		</button>
 
-		<h2 id="type-map-name"></h2>
-		<h2 id="maps-name"></h2>
+		<!-- h2 id="type-map-name"></h2>
+		<h2 id="maps-name"></h2> -->
 		<h2 id="mode-name"></h2>
 	</div>
 	<div id="svg-container">
@@ -58,11 +61,11 @@
 		<div class="detail-block" id="detail-a">
 			<div class="detail-header">
 				<h4 class='detail-caption'>
-					DANH SÁCH CÁC KẾT NỐI
+					<span id='type-map-name'></span> (<b class='maps-name'></b>)
 					<div id='connect-count' class="count">0</div>
 				</h4>
 				<div class="detail-function">
-					<button status="unexpand" id="expand-detail" class="btn-expand" title="Phóng to chi tiết"><i class='fa fa-arrows-alt'></i></button>
+					<button status="unexpand" class="expand-detail" class="btn-expand" title="Phóng to chi tiết"><i class='fa fa-arrows-alt'></i></button>
 					<button status="play" class="btn-detail-play" title="Dừng chuyển trang tự động"><i class='fa fa-pause'></i></button>
 					<button class="btn-detail-left" title="Về trang trước"><i class='fa fa-chevron-left'></i></button>
 					<button class="btn-detail-right" title="Đến trang kế"><i class='fa fa-chevron-right'></i></button>
@@ -98,10 +101,11 @@
 		<div class="detail-block" id="detail-c">
 			<div class="detail-header">
 				<h4 class='detail-caption'>
-					DANH SÁCH DẤU HIỆU TẤN CÔNG
+					<span id='type-map-name'></span> (<b class='maps-name'></b>)
 					<div id='attack-count' class="count">0</div>
 				</h4>
 				<div class="detail-function">
+					<button status="unexpand" class="expand-detail" class="btn-expand" title="Phóng to chi tiết"><i class='fa fa-arrows-alt'></i></button>
 					<button status="play" class="btn-detail-play" title="Dừng chuyển trang tự động"><i class='fa fa-pause'></i></button>
 					<button class="btn-detail-left" title="Về trang trước"><i class='fa fa-chevron-left'></i></button>
 					<button class="btn-detail-right" title="Đến trang kế"><i class='fa fa-chevron-right'></i></button>
@@ -123,7 +127,7 @@
 	</div>
 	
 <div id="modal-filter" class="modal fade" role="dialog">
-	<div class="modal-dialog  modal-lg" style="width: 500px;">
+	<div class="modal-dialog  modal-lg" style="min-width: 570px;width:1000px">
 
 		<!-- Modal content-->
 		<div class="modal-content">
@@ -132,11 +136,45 @@
 				<h4 class="modal-title">Bộ lọc nâng cao</h4>
 			</div>
 			<div class="modal-body">
+				<div id="whitelist">
+					<div class="form-group">
+						<label for="whitelist">Whitelist: <input type="checkbox" id="cb-whitelist" value=""></label>
+						<button class="btn btn-primary btn-filterchoose" filter="whitelist"
+							value-filter="all" style="margin-left:24px;">Tất cả</button>
+						<div class="btn-group">
+							<button active="false" class="btn btn-default btn-filterchoose"
+								filter="whitelist"value-filter="inwl">Hợp lệ</button>
+							<!-- <button active="false" class="btn btn-default btn-filterchoose"
+								filter="source" source-type="firewall" value-filter="firewall-out">Firewall ngoài</button> -->
+							<button active="false" class="btn btn-default btn-filterchoose"
+								filter="whitelist" value-filter="notinwl">Không hợp lệ</button>
+						</div>
+					</div>
+					<div class='result-type'></div>
+					<hr>
+				</div>
+				<div id="source">
+					<div class="form-group">
+						<label for="source">Nguồn dữ liệu:</label>
+						<button class="btn btn-primary btn-filterchoose" filter="source"
+							value-filter="all" style="margin-left:24px;">Tất cả</button>
+						<div class="btn-group">
+							<button active="false" class="btn btn-default btn-filterchoose"
+								filter="source" source-type="firewall" value-filter="firewall-in">Firewall</button>
+							<!-- <button active="false" class="btn btn-default btn-filterchoose"
+								filter="source" source-type="firewall" value-filter="firewall-out">Firewall ngoài</button> -->
+							<button active="false" class="btn btn-default btn-filterchoose"
+								filter="source" source-type="agent" value-filter="agent">Agent</button>
+						</div>
+					</div>
+					<div class='result-type'></div>
+					<hr>
+				</div>
 				<div id="protocol">
 					<div class="form-group">
 						<label for="protocol">Giao thức:</label>
 						<button class="btn btn-primary btn-filterchoose" filter="protocol"
-							value-filter="all" style="margin-left:30px;">Tất cả</button>
+							value-filter="all" style="margin-left:24px;">Tất cả</button>
 						<div class="btn-group">
 							<button active="false" class="btn btn-default btn-filterchoose"
 								filter="protocol" value-filter="tcp">TCP</button>
@@ -156,9 +194,17 @@
 							value-filter="all" style="margin-left:24px;">Tất cả</button>
 						<div class="btn-group">
 							<button active="false" class="btn btn-default btn-filterchoose"
-								filter="action" value-filter="pass">PASS</button>
+								filter="action" value-filter="pass">pass</button>
 							<button active="false" class="btn btn-default btn-filterchoose"
-								filter="action" value-filter="block">BLOCK</button>
+								filter="action" value-filter="block">block</button>
+							<button active="false" class="btn btn-default btn-filterchoose"
+								filter="action" value-filter="permitted">permitted</button>
+							<button active="false" class="btn btn-default btn-filterchoose"
+								filter="action" value-filter="denied">denied</button>
+							<button active="false" class="btn btn-default btn-filterchoose"
+								filter="action" value-filter="ALLOW">ALLOW</button>
+							<button active="false" class="btn btn-default btn-filterchoose"
+								filter="action" value-filter="DROP">DROP</button>
 						</div>
 					</div>
 					<div class='result-type'></div>
@@ -168,7 +214,7 @@
 					<div class="form-group">
 						<label for="priority">Mức độ:</label>
 						<button class="btn btn-primary btn-filterchoose" filter="priority"
-							value-filter="all" style="margin-left:42px;">Tất cả</button>
+							value-filter="all" style="margin-left:24px;">Tất cả</button>
 						<div class="btn-group">
 							<button active="false" class="btn btn-default btn-filterchoose"
 								filter="priority" value-filter="1">HIGH</button>
@@ -250,7 +296,7 @@
 
 	</div>
 </div>
-	
+<div class="loader"></div>
 </body>
 </html>
 

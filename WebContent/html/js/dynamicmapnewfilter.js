@@ -47,6 +47,12 @@ $(document).ready(function(){
 		
 		if(value=="all"){
 			switch (filter) {
+				case "whitelist":
+					filterWhitelist = [];
+				break;
+				case "source":
+					filterSource = [];
+				break;
 				case "protocol":
 					filterProtocol = [];
 				break;
@@ -64,26 +70,40 @@ $(document).ready(function(){
 		}else{
 			$(".btn-filterchoose[filter='"+filter+"'][value-filter='all']").attr("class","btn btn-default btn-filterchoose");
 			switch (filter) {
+				case "whitelist":
+					if(active=="true"){
+						filterWhitelist.splice(filterWhitelist.indexOf(value), 1);
+					} else {
+						filterWhitelist.push(value);
+					}
+					break;
+				case "source":
+					if(active=="true"){
+						filterSource.splice(filterSource.indexOf(value), 1);
+					} else {
+						filterSource.push(value);
+					}
+					break;
 				case "protocol":
-				if(active=="true"){
-					filterProtocol.splice(filterProtocol.indexOf(value), 1);
-				} else {
-					filterProtocol.push(value);
-				}
+					if(active=="true"){
+						filterProtocol.splice(filterProtocol.indexOf(value), 1);
+					} else {
+						filterProtocol.push(value);
+					}
 				break;
 				case "action":
-				if(active=="true"){
-					filterAction.splice(filterAction.indexOf(value), 1);
-				} else {
-					filterAction.push(value);
-				}
+					if(active=="true"){
+						filterAction.splice(filterAction.indexOf(value), 1);
+					} else {
+						filterAction.push(value);
+					}
 				break;
 				case "priority":
-				if(active=="true"){
-					filterPriority.splice(filterPriority.indexOf(value), 1);
-				} else {
-					filterPriority.push(value);
-				}
+					if(active=="true"){
+						filterPriority.splice(filterPriority.indexOf(value), 1);
+					} else {
+						filterPriority.push(value);
+					}
 				break;
 			}
 			if(active=="true"){
@@ -91,14 +111,80 @@ $(document).ready(function(){
 				
 				$(this).removeClass("btn-info");
 				$(this).addClass("btn-default");
+				
+				if($(".btn-filterchoose[filter='"+filter+"'][value-filter!='all'][active='true']").length==0){
+					$(".btn-filterchoose[filter='"+filter+"'][value-filter='all']").trigger("click");
+				}
 			} else{
 				$(this).attr("active","true");
 				
 				$(this).removeClass("btn-default");
 				$(this).addClass("btn-info");
 			}	
-		}	
+		}
 	});
+	$(".btn-filterchoose[filter='source']").on("click",function(){
+		/* active này sẽ tính là sau khi thay đổi - ăn event ở event trên trước */
+		var value = $(this).attr("value-filter");
+		var active = $(this).attr("active");
+		var sourceType = $(this).attr("source-type");
+		
+		$(".btn-filterchoose[filter='action'][value-filter='all']").trigger("click");
+		
+		if(value=="all"){
+			$(".btn-filterchoose[filter='action'][value-filter='pass']").show();
+			$(".btn-filterchoose[filter='action'][value-filter='block']").show();
+			$(".btn-filterchoose[filter='action'][value-filter='permitted']").show();
+			$(".btn-filterchoose[filter='action'][value-filter='denied']").show();
+			$(".btn-filterchoose[filter='action'][value-filter='ALLOW']").show();
+			$(".btn-filterchoose[filter='action'][value-filter='DROP']").show();
+		} else {
+			if(active=="true"){
+				if(sourceType=="firewall"){
+					$(".btn-filterchoose[filter='action'][value-filter='pass']").show();
+					$(".btn-filterchoose[filter='action'][value-filter='block']").show();
+					$(".btn-filterchoose[filter='action'][value-filter='permitted']").show();
+					$(".btn-filterchoose[filter='action'][value-filter='denied']").show();
+					if($(".btn-filterchoose[filter='source'][source-type='agent'][active='true']").length==0){
+						$(".btn-filterchoose[filter='action'][value-filter='ALLOW']").hide();
+						$(".btn-filterchoose[filter='action'][value-filter='DROP']").hide();
+					}
+				}else if(sourceType=="agent"){
+					$(".btn-filterchoose[filter='action'][value-filter='ALLOW']").show();
+					$(".btn-filterchoose[filter='action'][value-filter='DROP']").show();
+					if($(".btn-filterchoose[filter='source'][source-type='firewall'][active='true']").length==0){
+						$(".btn-filterchoose[filter='action'][value-filter='pass']").hide();
+						$(".btn-filterchoose[filter='action'][value-filter='block']").hide();
+						$(".btn-filterchoose[filter='action'][value-filter='permitted']").hide();
+						$(".btn-filterchoose[filter='action'][value-filter='denied']").hide();
+					}
+				}				
+			}else {
+				if(sourceType=="firewall"){
+					 if($(".btn-filterchoose[filter='source'][source-type='firewall'][active='true']").length==0){
+						$(".btn-filterchoose[filter='action'][value-filter='pass']").hide();
+						$(".btn-filterchoose[filter='action'][value-filter='block']").hide();
+						$(".btn-filterchoose[filter='action'][value-filter='permitted']").hide();
+						$(".btn-filterchoose[filter='action'][value-filter='denied']").hide();
+					}
+				} else if(sourceType=="agent"){
+					$(".btn-filterchoose[filter='action'][value-filter='ALLOW']").hide();
+					$(".btn-filterchoose[filter='action'][value-filter='DROP']").hide();
+				}
+				
+				if($(".btn-filterchoose[filter='source'][value-filter!='all'][active='true']").length==0){
+					$(".btn-filterchoose[filter='action'][value-filter='pass']").show();
+					$(".btn-filterchoose[filter='action'][value-filter='block']").show();
+					$(".btn-filterchoose[filter='action'][value-filter='permitted']").show();
+					$(".btn-filterchoose[filter='action'][value-filter='denied']").show();
+					$(".btn-filterchoose[filter='action'][value-filter='ALLOW']").show();
+					$(".btn-filterchoose[filter='action'][value-filter='DROP']").show();
+				}
+			}
+		}
+		
+	});
+	
 	$("#signame select").select2({
 		width: '100%'
 	});
@@ -247,14 +333,4 @@ $(document).ready(function(){
 			$("#btn-replay").trigger("click");
 		}
 	});
-
-	function addToArrayFilterType(id,value,array){
-		if(array.includes(value)){
-			swal("Không thành công!", "Giá trị đã tồn tại trong bộ lọc!", "error");
-			return;
-		}
-		array.push(value);
-		var displayBlock = "<div class='filter-type-display'><span>"+value+"</span><button filter='"+id+"' filter-value='"+value+"'><i class='fa fa-remove'></i></button></div>"
-		$("#"+id+" .result-type").prepend(displayBlock);
-	}
 });

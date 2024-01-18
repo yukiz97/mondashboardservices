@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	var statusMapUrl = url+"statusmap/";
 	var params = new window.URLSearchParams(window.location.search);
+	var servicesOfHost = [];
 
 	getStatusMapList();
 
@@ -37,9 +38,27 @@ $(document).ready(function(){
 						{
 							icon = "exclamation";
 							status = "notok";
+							
+							if(item.listService.length > 0){
+								var checkRealError = false;
+								item.listService.forEach(function(itemTest,index){
+									var serviceName = itemTest.serviceName;
+									var state = itemTest.serviceState;
+									
+									if(serviceName!="CHECK-UPTIME" && state >0 || serviceName=="CHECK-UPTIME" && state>1){
+										checkRealError = true;
+										return;
+									}
+								});
+								
+								if(!checkRealError){
+									icon = "check";
+									status = "assumeok";
+								}
+							}
 						}
-
-						strItem+="<div style='transform:translate("+item.x+"px, "+item.y+"px)' host-id='"+item.idHost+"' title='"+item.idHost+"' status='"+status+"' class='drag-item'><i class='fa fa-"+icon+"'></i></div>";
+						servicesOfHost[item.idHost] = item.listService;
+						strItem+="<div data-toggle='modal' data-target='#modal-serviceofhost' style='transform:translate("+item.x+"px, "+item.y+"px)' host-id='"+item.idHost+"' title='"+item.idHost+"' status='"+status+"' class='drag-item'><i class='fa fa-"+icon+"'></i><span>"+item.idHost+"</span></div>";
 					});
 
 					strSlideContent+="<div class='swiper-slide'>"
@@ -50,7 +69,8 @@ $(document).ready(function(){
 					+"</div>";
 				});
 				$(".swiper-wrapper").append(strSlideContent);
-
+				
+				console.log(servicesOfHost);
 				getStatusMapTimeConfigList();
 			},
 			error: function(){
@@ -95,6 +115,50 @@ $(document).ready(function(){
 			}
 		});
 	}
+	
+	$("body").on("click",".drag-item",function(){
+		var hostId = $(this).attr("host-id");
+		$("#modal-serviceofhost .modal-title").html("Danh sách Service của "+hostId);
+		
+		var tableContent = "";
+		
+		servicesOfHost[hostId].forEach(function(item,index){
+			var serviceName = item.serviceName;
+			var state = item.serviceState;
+			var lastCheck = item.lastCheck;
+			var checkAttempt = item.currentAttempt + "/" +item.maxAttempt;
+			var output = item.output;
+			
+			var stateDisplay;
+			
+			switch(state) {
+				case 0: 
+					stateDisplay = "<b style='color: ForestGreen !important'>OK</b>";
+				break;
+				case 1: 
+					stateDisplay = "<b style='color: GoldenRod !important'>Warning</b>";
+				break;
+				case 2: 
+					stateDisplay = "<b style='color: PaleVioletRed !important'>Critical</b>";
+				break;
+				case 3: 
+					stateDisplay = "<b style='color: DarkGrey !important'>Unknown</b>";
+				break;
+				case 4: 
+					stateDisplay = "<b style='color: DarkGrey !important'>Pending</b>";
+				break;
+			}
+			
+			tableContent+="<tr>"
+			+"<td>"+serviceName+"</td>"
+			+"<td>"+stateDisplay+"</td>"
+			+"<td>"+lastCheck+"</td>"
+			+"<td>"+checkAttempt+"</td>"
+			+"<td>"+output+"</td>"
+			+"</tr>";
+		});
+		$("#modal-serviceofhost tbody").html(tableContent);
+	});
 
 	$(window).on('resize', function(){
      	scaleImg();

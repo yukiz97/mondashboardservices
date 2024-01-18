@@ -1,8 +1,5 @@
 package monservice.services;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -10,9 +7,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import monservice.models.DynamicMapBean;
 import monservice.models.DynamicMapBlock;
-import monservice.models.RangeIPModel;
 import monservice.utils.DynamicMapServiceUtils;
 import monservice.utils.SnortMongoDBServiceUtils;
 
@@ -23,10 +18,16 @@ public class DynamicMapServices {
 	@Path("/getdynamicmap")
 	@GET
 	@Produces({MediaType.APPLICATION_JSON })
-	public Response getMapList(@QueryParam("idMapLeft")int idMapLeft, @QueryParam("idMapRight")int idMapRight) {
+	public Response getMapList(@QueryParam("idMapLeft")int idMapLeft, @QueryParam("idMapRight")int idMapRight, @QueryParam("template")int idTemplate) {
 		DynamicMapBlock modelMap = null;
 		try {
 			modelMap = svMap.getDynamicMap(idMapLeft,idMapRight);
+			
+			if(idTemplate!=0) {
+				modelMap.getFilter().addAll(DynamicMapServiceUtils.returnDynamicMapTemplateFilterList(idTemplate));
+			}
+			modelMap.getWhitelist().addAll(DynamicMapServiceUtils.returnRangeIpWhitelistList());
+			modelMap.getUseriprecognize().addAll(DynamicMapServiceUtils.returnUserIPRecognize());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

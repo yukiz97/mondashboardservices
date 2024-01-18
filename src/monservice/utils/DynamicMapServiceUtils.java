@@ -1,6 +1,5 @@
 package monservice.utils;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -17,9 +17,10 @@ import org.apache.commons.io.IOUtils;
 import monservice.models.DynamicMapBean;
 import monservice.models.DynamicMapBlock;
 import monservice.models.DynamicMapItemBean;
-import monservice.models.DynamicSVGMapBean;
-import monservice.models.DynamicSVGMapItemBean;
+import monservice.models.DynamicTemplateFilterModel;
+import monservice.models.IPWhiteListModel;
 import monservice.models.RangeIPModel;
+import monservice.models.UserAddressRecognizeModel;
 
 public class DynamicMapServiceUtils {
 	public DynamicMapBlock getDynamicMap(int idLeft,int idRight) throws Exception
@@ -100,6 +101,36 @@ public class DynamicMapServiceUtils {
 
 		return model;
 	}
+	
+	public static List<UserAddressRecognizeModel> returnUserIPRecognize() throws SQLException
+	{
+		List<UserAddressRecognizeModel> list = new ArrayList<UserAddressRecognizeModel>();	
+
+		Connection con = DatabaseUtils.returnConnectivityMapConnection();
+		String sql = "SELECT * from user_address_recognize ORDER BY Address DESC";
+
+		ResultSet rs = con.createStatement().executeQuery(sql);
+
+		while(rs.next())
+		{
+			int id = rs.getInt("Id");
+			String address = rs.getString("Address");
+			String username = rs.getNString("Username");
+			String orgname = rs.getNString("Orgname");
+			
+			UserAddressRecognizeModel model = new UserAddressRecognizeModel();
+			model.setId(id);
+			model.setAddress(address);
+			model.setUsername(username);
+			model.setOrgname(orgname);
+			list.add(model);
+		}
+
+		rs.close();
+		con.close();
+
+		return list;
+	}
 
 	public static Map<String, RangeIPModel> getAllRangeIpOfParent(String codeParent) throws SQLException
 	{
@@ -177,5 +208,85 @@ public class DynamicMapServiceUtils {
 		con.close();
 		
 		return map;
+	}
+	
+	public static List<String> getAllRangeIpDeclare() throws SQLException
+	{
+		List<String> listRangeIp = new ArrayList<String>();
+		
+		Connection con = DatabaseUtils.returnConnectivityMapConnection();
+		String sql = "SELECT * FROM location_rangeip WHERE RangeIp IS NOT NULL AND RangeIp <> ''";
+		System.out.println(sql);
+		ResultSet rs = con.createStatement().executeQuery(sql);
+		
+		while(rs.next())
+		{
+			String rangeIp = rs.getString("RangeIp").replaceAll("\\s+", "").trim();
+			if(rangeIp.trim().length()==0)
+				continue;
+			listRangeIp.addAll(new ArrayList<String>(Arrays.asList(rangeIp.split(Pattern.quote(",")))));
+		}
+		rs.close();
+		con.close();
+		
+		return listRangeIp;
+	}
+	
+	public static List<DynamicTemplateFilterModel> returnDynamicMapTemplateFilterList(int idTemplate) throws SQLException
+	{
+		List<DynamicTemplateFilterModel> list = new LinkedList<DynamicTemplateFilterModel>();	
+
+		Connection con = DatabaseUtils.returnConnectivityMapConnection();
+		String sql = "SELECT * from dynamic_map_template_filter WHERE IdTemplate = "+idTemplate+" ORDER BY TypeFilter DESC";
+
+		ResultSet rs = con.createStatement().executeQuery(sql);
+
+		while(rs.next())
+		{
+			String type = rs.getString("TypeFilter");
+			String value = rs.getString("Value");
+			
+			DynamicTemplateFilterModel modelTemplate = new DynamicTemplateFilterModel(type,value);
+			list.add(modelTemplate);
+		}
+
+		rs.close();
+		con.close();
+
+		return list;
+	}
+	
+	public static List<IPWhiteListModel> returnRangeIpWhitelistList() throws SQLException
+	{
+		List<IPWhiteListModel> listIP = new LinkedList<IPWhiteListModel>();
+		Connection con = DatabaseUtils.returnConnectivityMapConnection();
+		String sql = "SELECT * FROM ip_whitelist ORDER BY Name";
+		ResultSet rs = con.createStatement().executeQuery(sql);
+
+		while(rs.next())
+		{
+			String source = rs.getString("Source");
+			String destination = rs.getString("Destination")!=null?rs.getString("Destination").trim().replaceAll("\\s+", " "):null;
+
+			IPWhiteListModel model = new IPWhiteListModel();
+
+			model.setId(rs.getInt("Id"));
+			model.setName(rs.getNString("Name"));
+			model.setSourceIp(source);
+
+			if(destination!=null)
+			{
+				String[] arrRangeIp = destination.split(Pattern.quote(","));
+
+				model.getListRangeIp().addAll(Arrays.asList(arrRangeIp));
+			}
+
+			listIP.add(model);
+		}
+
+		rs.close();
+		con.close();
+
+		return listIP;
 	}
 }

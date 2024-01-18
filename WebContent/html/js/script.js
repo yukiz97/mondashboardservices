@@ -1,4 +1,5 @@
 var url = "/mondashboardservices/rest/";
+var urlMon = "/monitoring/download-log";
 
 var loadStatusViewInterval;
 var loadFlowViewInterval;
