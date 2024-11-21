@@ -69,7 +69,8 @@
     margin-top: 17px;
     margin-left: -3px;
     font-size: 8px;
-    min-width: 100px;
+    min-width: fit-content;
+    white-space:nowrap;
 }
 .drag-item[status="assumeok"] i
 {
